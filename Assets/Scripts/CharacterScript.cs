@@ -4,10 +4,10 @@ using System.Collections;
 public class CharacterScript : MonoBehaviour
 {
 
-		/// <summary>
-		/// 1 - The type of the character
-		/// </summary>
-		public bool isEnemy = false;
+	/// <summary>
+	/// 1 - The type of the character
+	/// </summary>
+	public bool isEnemy = false;
 
 	/// <summary>
 	/// 2 - The movement speed of the character
@@ -19,6 +19,10 @@ public class CharacterScript : MonoBehaviour
 	public int lineEnnemy;
 	
 	public int boost = 0;
+
+	public float score = 0;
+	public float points = 1.0f;
+	//public int multiplier = 1;
 
 		/// <summary>
 		/// 3 - Line on which the character is
@@ -112,6 +116,8 @@ public class CharacterScript : MonoBehaviour
 			Application.LoadLevel("death");
 		}
 
+		score += points * Time.time;
+		print ((int)score);
 	}
 
 		float changeLine (int direction)
@@ -161,22 +167,38 @@ public class CharacterScript : MonoBehaviour
 	{
 		if(!isEnemy)
 		{
-			DrugScript obj = otherCollider.gameObject.GetComponent<DrugScript> ();
-			if (obj != null) {
-				switch (obj.type) {
+			DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
+			if (drug != null) 
+			{
+				switch (drug.type) 
+				{
 					case "Speed" :
 						Debug.Log("Speed");
 						boost = ConstantScript.BOOST_LENGTH;
+					    score += points + 0.1f * Time.time;
 						break;
 					case "LSD" :
 						Debug.Log("LSD");
 						boost = -ConstantScript.BOOST_LENGTH/2;
+						score += points + 0.1f * Time.time;
 						break;
 					default :
 						Debug.Log("WARNING !!! should never happen !!! drug has no type");
 						break;
 				}
-				Destroy(obj.gameObject);
+				Destroy(drug.gameObject);
+
+				return;
+			}
+			CharacterScript enemy = otherCollider.gameObject.GetComponent<CharacterScript>();
+			if(enemy != null)
+			{
+				//Supprimer les bonus des drogues
+				print("collision avec un ennemi");
+				boost = -ConstantScript.BOOST_LENGTH/2;
+
+				Destroy(enemy.gameObject);
+
 				return;
 			}
 		}
