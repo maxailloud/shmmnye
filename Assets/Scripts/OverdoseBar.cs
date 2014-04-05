@@ -2,9 +2,6 @@
 using System.Collections;
 
 public class OverdoseBar {
-
-    // Max drugs you can take before overdose
-    private int maxDrugLevel = 100;
     
     public int drugLevel = 0;
 
