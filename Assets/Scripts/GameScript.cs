@@ -85,18 +85,10 @@ public class GameScript : MonoBehaviour
                             print ("LSD appears");
                             break;
                         case 4:
-                            print ("TODO : Water should have appeared");
+                            var drug2Transform = Instantiate (waterPrefab) as Transform;
+                            drug2Transform.GetComponent<DrugScript> ().setLine (i);
                             break;
-                        case 5: 
-                        case 6:
-                        case 7:
-                        case 8: 
-                        case 9: 
-                        case 10: 
-                        case 11: 
                         default:
-                            var ennemy2Transform = Instantiate (ennemyPrefab) as Transform;
-                            //var drug2Transform = Instantiate (waterPrefab) as Transform;
                             break;
                     }
                 }

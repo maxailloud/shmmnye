@@ -29,41 +29,14 @@ public class CharacterScript : MonoBehaviour
     public int line = 3;
 
 // Use this for initialization
-    void Awake ()
+    void Start ()
     {
-        Debug.Log ("character script");
-        if (isEnemy) {
-//              //lineEnnemy = Random.Range(1, 6);
-//              switch(lineEnnemy)
-//              {
-//                  case 1 :
-//                      transform.Translate(13f, ConstantScript.LINE_1, 0.0f);
-//                      break;
-//                  case 2 :
-//                      transform.Translate(13f, ConstantScript.LINE_2, 0.0f);
-//                      break;
-//                  case 3 :
-//                      transform.Translate(13f, ConstantScript.LINE_3, 0.0f);
-//                      break;
-//                  case 4 :
-//                      transform.Translate(13f, ConstantScript.LINE_4, 0.0f);
-//                      break;
-//                  case 5 :
-//                      transform.Translate(13f, ConstantScript.LINE_5, 0.0f);
-//                      break;
-//                  default:
-//                      Debug.Log("WARNING !!! (in characterScript - start() )");
-//                      break;
-//              }
-        } else {
+        if (!isEnemy) 
             InvokeRepeating ("addScore", 1.0f, 1.0f);
-        }
     }
         
     public void setLine (int newLine)
     {
-        //lineEnnemy = Random.Range(1, 6);
-
         switch (line = newLine) {
             case 1:
                 transform.Translate (13f, ConstantScript.LINE_1, 0.0f);
@@ -200,12 +173,10 @@ public class CharacterScript : MonoBehaviour
                     Debug.Log ("score in OnTriggerEnter2D " + score);
                     switch (drug.type) {
                         case "Speed":
-                            Debug.Log ("Speed");
                             boost = ConstantScript.BOOST_LENGTH;
                             score += increaseScore;
                             break;
                         case "LSD":
-                            Debug.Log ("LSD");
                             boost = -ConstantScript.BOOST_LENGTH / 3;
                             score += increaseScore;
                             break;
@@ -226,7 +197,7 @@ public class CharacterScript : MonoBehaviour
                 if (enemy.line == line) {
                     //Supprimer les bonus des drogues
                     print ("collision avec un ennemi");
-                    boost = -ConstantScript.BOOST_LENGTH / 2;
+                    boost = -ConstantScript.BOOST_LENGTH / 2 + boost<0?boost:0;
 
                     Destroy (enemy.gameObject);
                 }
