@@ -16,6 +16,9 @@ public class ScrollingScript : MonoBehaviour
 /// List of children with a renderer.
 /// </summary>
     private List<Transform> backgroundPart;
+    
+    public TextMesh distanceText;
+    private float distance = 0;
 
 // Get all the children
     void Start ()
@@ -52,6 +55,8 @@ public class ScrollingScript : MonoBehaviour
             0,
             0);
 
+        addDistance (ConstantScript.TRACK_SPEED);
+
         movement *= Time.deltaTime;
         transform.Translate (movement);
 
@@ -87,5 +92,16 @@ public class ScrollingScript : MonoBehaviour
                 }
             }
         }
+    }
+    
+    void addDistance(float additionalDistance)
+    {
+        distance += additionalDistance;
+        UpdateDistance ();
+    }
+    
+    void UpdateDistance ()
+    {
+        distanceText.text = ((int)distance / 50) + "m";
     }
 }

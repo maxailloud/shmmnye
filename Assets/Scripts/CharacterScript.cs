@@ -17,6 +17,7 @@ public class CharacterScript : MonoBehaviour
     public int lineCharacter;
     public int lineEnnemy;
     public int boost = 0;
+
     public TextMesh scoreText;
     public float score = 0;
     public float increaseScore = 1;

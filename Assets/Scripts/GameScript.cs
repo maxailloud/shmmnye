@@ -67,8 +67,6 @@ public class GameScript : MonoBehaviour
 
                     timer += coolDown;
 
-
-
                     switch (nextObstacle) {
                     //drug
                         case 1:
