@@ -3,29 +3,59 @@ using System.Collections;
 
 public class GameScript : MonoBehaviour 
 {
+	//Set the boundaries for the random timer value until the next obstacle appear
+	public int lowerBoundary = 1;
+	public int upperBoundary = 3;
+
+	//Objects the script creates
 	public Transform drugPrefab;
-	private float drugsTime;
-	public float drugsCoolDown;			//Valeur qui devra évoluer dans la vie du jeu pour faire apparaitre des drogues plus vite
+	public Transform ennemyPrefab;
+
+	//Store the timer values and which obstacle comes next
+	public int nextObstacle;	//1 = drug, 2 = ennemy
+	private float timer;
+	public float coolDown;
+
 	// Use this for initialization
 	void Start () 
 	{
-		drugsTime = 0.0f;
-		drugsCoolDown = 1.0f;
+		timer = 0.0f;
+		coolDown = 1.0f;
+		nextObstacle = 1;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if (drugsTime <= 0.0f) 
+		switch (nextObstacle) 
 		{
-			//Faire apparaitre les drogues ici
-			drugsTime += drugsCoolDown;
-			var drugTransform = Instantiate(drugPrefab) as Transform;
+			//drug
+			case 1 :
+				if (timer <= 0.0f) 
+				{
+					//Faire apparaitre les drogues ici
+					timer += coolDown;
+					var drugTransform = Instantiate(drugPrefab) as Transform;
+				}
+				break;
+
+			//ennemy
+			case 2 :
+				if (timer <= 0.0f) 
+				{
+					timer += coolDown;
+					var ennemyTransform = Instantiate(ennemyPrefab) as Transform;
+				}
+				break;
 		}
-		else if (drugsTime > 0.0f) 
+
+
+		if(timer > 0.0f) 
 		{
-			drugsTime -= Time.deltaTime;
+			timer -= Time.deltaTime;
 		}
+
+		nextObstacle =  Random.Range(1, 3);
 
 	}
 }
