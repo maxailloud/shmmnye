@@ -217,7 +217,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowerBoundary: 1
   upperBoundary: 3
-  drugPrefab: {fileID: 400000, guid: 6a76fe3dc6572b14a86ffa7b747548b8, type: 2}
+  lsdPrefab: {fileID: 400000, guid: 6a76fe3dc6572b14a86ffa7b747548b8, type: 2}
+  speedPrefab: {fileID: 400000, guid: a7a798f22182b4b4b89fc5e697ba86c8, type: 2}
+  waterPrefab: {fileID: 400000, guid: 2461b9a589979af40ac38a94250b8b9d, type: 2}
   ennemyPrefab: {fileID: 400000, guid: 99910a56680410546b1f4487ca997934, type: 2}
   nextObstacle: 0
   coolDown: 0
@@ -566,7 +568,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 0
-  staticMovement: {x: 0, y: 0, z: 0}
   movement: {x: 0, y: 0, z: 0}
   lineCharacter: 0
   lineEnnemy: 0

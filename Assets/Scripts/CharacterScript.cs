@@ -12,12 +12,12 @@ public class CharacterScript : MonoBehaviour
 	/// <summary>
 	/// 2 - The movement speed of the character
 	/// </summary>
-	public Vector3 staticMovement;
+//	public Vector3 staticMovement;
 	public Vector3 movement;
 
 	public int lineCharacter;
 	public int lineEnnemy;
-	
+
 	public int boost = 0;
 
 	public float score = 0;
@@ -30,60 +30,48 @@ public class CharacterScript : MonoBehaviour
 		public int line = 3;
 
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
-		print (isEnemy);
-		if (!isEnemy) 
+		if (isEnemy)
 		{
-			staticMovement = new Vector3 (-ConstantScript.RUNNER_SPEED, 0, 0);
-		}
-		else
-		{
-			staticMovement = new Vector3 (-ConstantScript.ENNEMY_SPEED, 0, 0);
-
-			transform.position.Set(10.0f, -2.512199f, 0.0f);
-
 			lineEnnemy = Random.Range(1, 6);
-
 			switch(lineEnnemy)
 			{
 				case 1 :
-				transform.Translate(0.0f, 0.0f, 0.0f);
-				break;
-
+					transform.Translate(13f, ConstantScript.LINE_1, 0.0f);
+					break;
 				case 2 :
-				transform.Translate(0.0f, 0.8f, 0.0f);
-				break;
-
+					transform.Translate(13f, ConstantScript.LINE_2, 0.0f);
+					break;
 				case 3 :
-				transform.Translate(0.0f, 1.7f, 0.0f);
-				break;
-
+					transform.Translate(13f, ConstantScript.LINE_3, 0.0f);
+					break;
 				case 4 :
-				transform.Translate(0.0f, 2.2f, 0.0f);
-				break;
-
+					transform.Translate(13f, ConstantScript.LINE_4, 0.0f);
+					break;
 				case 5 :
-				transform.Translate(0.0f, 2.6f, 0.0f);
-				break;
+					transform.Translate(13f, ConstantScript.LINE_5, 0.0f);
+					break;
+				default:
+					Debug.Log("WARNING !!! (in characterScript - start() )");
+					break;
 			}
 		}
+
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
-	{	
-		if (isEnemy) 
+	{
+		if (isEnemy)
 		{
 			Vector3 mov = new Vector3 (
-				-ConstantScript.RUNNER_SPEED * Time.deltaTime,
+				-ConstantScript.ENNEMY_SPEED * Time.deltaTime,
 				0,
 				0);
-		
 			transform.Translate (mov);
 			return;
 		}
-
 		float shiftY = 0;
 
 		if (Input.GetKeyUp (KeyCode.UpArrow)) {
@@ -110,7 +98,7 @@ public class CharacterScript : MonoBehaviour
 		transform.Translate (mov2);
 
 
-		if (!renderer.IsVisibleFrom(Camera.main)) 
+		if (!renderer.IsVisibleFrom(Camera.main))
 		{
 			print("Mort");
 			Application.LoadLevel("death");
@@ -162,15 +150,15 @@ public class CharacterScript : MonoBehaviour
 
 				return y;
 		}
-		
+
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
 		if(!isEnemy)
 		{
 			DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
-			if (drug != null) 
+			if (drug != null)
 			{
-				switch (drug.type) 
+				switch (drug.type)
 				{
 					case "Speed" :
 						Debug.Log("Speed");
@@ -182,12 +170,15 @@ public class CharacterScript : MonoBehaviour
 						boost = -ConstantScript.BOOST_LENGTH/2;
 						score += points + 0.1f * Time.time;
 						break;
-					default :
-						Debug.Log("WARNING !!! should never happen !!! drug has no type");
+					case "Water" :
+						Debug.Log("WATER : TODO !!!");
+//							boost = -ConstantScript.BOOST_LENGTH/2;
 						break;
+					default :
+							Debug.Log("WARNING !!! should never happen !!! drug has no type");
+							break;
 				}
 				Destroy(drug.gameObject);
-
 				return;
 			}
 			CharacterScript enemy = otherCollider.gameObject.GetComponent<CharacterScript>();

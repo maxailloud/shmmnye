@@ -8,8 +8,11 @@ public class GameScript : MonoBehaviour
 	public int upperBoundary = 3;
 
 	//Objects the script creates
-	public Transform drugPrefab;
+	public Transform lsdPrefab;
+	public Transform speedPrefab;
+	public Transform waterPrefab;
 	public Transform ennemyPrefab;
+
 
 	//Store the timer values and which obstacle comes next
 	public int nextObstacle;	//1 = drug, 2 = ennemy
@@ -27,35 +30,35 @@ public class GameScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		switch (nextObstacle) 
-		{
-			//drug
-			case 1 :
-				if (timer <= 0.0f) 
-				{
-					//Faire apparaitre les drogues ici
-					timer += coolDown;
-					var drugTransform = Instantiate(drugPrefab) as Transform;
-				}
-				break;
-
-			//ennemy
-			case 2 :
-				if (timer <= 0.0f) 
-				{
-					timer += coolDown;
-					var ennemyTransform = Instantiate(ennemyPrefab) as Transform;
-				}
-				break;
+		if (timer <= 0.0f) {
+			nextObstacle =  Random.Range(1, 17);
+			timer += coolDown;
+			switch (nextObstacle) {
+				//drug
+				case 1:
+					var ennemyTransform = Instantiate (ennemyPrefab) as Transform;
+					break;
+				case 2: 
+				case 3:
+				case 4:
+				case 5: 
+				case 6:
+					var drugTransform = Instantiate (lsdPrefab) as Transform;
+					break;
+				case 7:
+				case 8: 
+				case 9: 
+				case 10: 
+				case 11: 
+					var drug1Transform = Instantiate (speedPrefab) as Transform;
+					break;
+			default:
+				var ennemy2Transform = Instantiate (ennemyPrefab) as Transform;
+				//var drug2Transform = Instantiate (waterPrefab) as Transform;
+					break;
+			}
 		}
-
-
-		if(timer > 0.0f) 
-		{
+		else 
 			timer -= Time.deltaTime;
-		}
-
-		nextObstacle =  Random.Range(1, 3);
-
 	}
 }
