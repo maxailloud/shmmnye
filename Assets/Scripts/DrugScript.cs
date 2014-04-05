@@ -13,8 +13,7 @@ public class DrugScript : MonoBehaviour
 		public Vector2 direction = new Vector2 (-1, 0);		// Sens de déplacement vers la gauche
 
 		// Use this for initialization
-		void Start ()
-		{
+		void Start () {
 				// On tire une ligne entre 1 et 5 (Si les paramètres sont des entiers, range retourne des entiers).
 				line = Random.Range (1, 6);
 

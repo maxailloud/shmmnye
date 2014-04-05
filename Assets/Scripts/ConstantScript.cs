@@ -3,8 +3,10 @@ using System.Collections;
 
 public class ConstantScript {
 
-	public const float TRACK_SPEED = 4;
-	public const float RUNNER_SPEED = 1;
+	public const float TRACK_SPEED = 4f;
+	public const float RUNNER_SPEED = TRACK_SPEED/4f;
+	public const float BOOST_SPEED = TRACK_SPEED/2f;
+	public const int BOOST_LENGTH = 60;
 
 	// Position of the 5 rows
 	public const float LINE_1 = 0.0f;
