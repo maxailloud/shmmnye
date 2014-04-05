@@ -29,4 +29,9 @@ public class CharacterScript : MonoBehaviour {
 		movement *= Time.deltaTime;
 		transform.Translate(movement);
 	}
+
+	void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		Debug.Log("pouet");
+	}
 }

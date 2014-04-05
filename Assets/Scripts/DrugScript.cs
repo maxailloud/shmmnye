@@ -10,7 +10,6 @@ public class DrugScript : MonoBehaviour {
 	public int line = 1;
 	public Vector2 speed = new Vector2(2, 2);			// Vitesse
 	public Vector2 direction = new Vector2(-1, 0);		// Sens de déplacement vers la gauche
-	private Vector2 movement;							// Position à chaque frame
 
 	// Use this for initialization
 	void Start () 
@@ -43,9 +42,7 @@ public class DrugScript : MonoBehaviour {
 				break;
 		}
 
-		//Calcul du mouvement
-		movement = new Vector2(speed.x * direction.x, speed.y * direction.y);
-		Destroy(gameObject, 20); // 20sec
+		Destroy(gameObject, 10); // 20sec
 	}
 	
 	// Update is called once per frame
