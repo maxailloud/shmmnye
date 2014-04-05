@@ -18,6 +18,7 @@ public class ScrollingScript : MonoBehaviour
     private List<Transform> backgroundPart;
     
     public TextMesh distanceText;
+    public TextMesh distanceText3D;
     private float distance = 0;
 
 // Get all the children
@@ -102,6 +103,7 @@ public class ScrollingScript : MonoBehaviour
     
     void UpdateDistance ()
     {
-        distanceText.text = ((int)distance / 50) + "m";
+        distanceText.text   = "meters: " + ((int)distance / 50);        
+        distanceText3D.text = "meters: " + ((int)distance / 50);
     }
 }

@@ -8,6 +8,12 @@ public class DrugScript : MonoBehaviour
 /// </summary>
     public string type = null;
     public int line = 1;
+
+    
+    /// <summary>
+    /// 1 - Level that drug give for overdose bar
+    /// </summary>
+    public int drugPoint = 1;
     
 // Use this for initialization
     void Start ()

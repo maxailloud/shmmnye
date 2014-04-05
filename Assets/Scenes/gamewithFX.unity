@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLooping: 1
+  distanceText: {fileID: 0}
 --- !u!1 &266858513
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +481,13 @@ MonoBehaviour:
   ennemyPrefab: {fileID: 400000, guid: 99910a56680410546b1f4487ca997934, type: 2}
   nextObstacle: 0
   coolDown: 0
+  chanceOfEnnemies: 25
+  chanceOfLSD: 0
+  chanceOfSpeed: 0
+  chanceOfWater: 0
+  changeChancesAndFrequencies: 0
+  ellapsedSeconds: 0
+  characterscript: {fileID: 0}
 --- !u!1 &637881257
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +630,7 @@ MonoBehaviour:
   lineCharacter: 0
   lineEnnemy: 0
   boost: 0
+  scoreText: {fileID: 0}
   score: 0
   increaseScore: 1
   line: 3
@@ -635,7 +644,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: .5, y: .5}
+  m_Size: {x: 2.0999999, y: .400000006}
   m_Center: {x: .649999976, y: -1.14999998}
 --- !u!1 &934490295
 GameObject:
@@ -1989,6 +1998,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1356906494}
   - 212: {fileID: 1356906495}
+  - 114: {fileID: 1356906497}
   - 114: {fileID: 1356906496}
   m_Layer: 0
   m_Name: Torse
@@ -2042,6 +2052,18 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1356906493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a486636eb38c0241be0f638a9564634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1356906497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: c0916823c73d84a4ba4e5c5b45c78984,
+    type: 2}
+  m_PrefabInternal: {fileID: 425497046}
   m_GameObject: {fileID: 1356906493}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -2168,6 +2190,7 @@ GameObject:
   - 95: {fileID: 1659328164}
   - 114: {fileID: 1659328163}
   - 114: {fileID: 1659328162}
+  - 114: {fileID: 1659328166}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2315,6 +2338,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 67f8781cad112c75d0008dfa8d76c639, type: 3}
   textureRamp: {fileID: 2800000, guid: 0a70c16c7b47ab048bc9e03b588c24f6, type: 3}
+--- !u!114 &1659328166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1659328155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478a2083ad114a07d000fbfb8d76c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: e9ba2083ad114a07d000fbfb8d76c639, type: 3}
+  blurAmount: .800000012
+  extraBlur: 0
 --- !u!1 &1661702339
 GameObject:
   m_ObjectHideFlags: 0
