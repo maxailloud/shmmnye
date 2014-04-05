@@ -109,6 +109,7 @@ public class CharacterScript : MonoBehaviour
 		if (!renderer.IsVisibleFrom(Camera.main)) 
 		{
 			print("Mort");
+			Application.LoadLevel("death");
 		}
 
 	}
