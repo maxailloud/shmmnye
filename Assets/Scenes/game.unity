@@ -283,7 +283,7 @@ Transform:
   m_LocalPosition: {x: 6.11064672, y: 2.48952198, z: -3.58862305}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1220976470}
 --- !u!1 &236602458
 GameObject:
   m_ObjectHideFlags: 0
