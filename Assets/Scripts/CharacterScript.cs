@@ -21,7 +21,13 @@ public class CharacterScript : MonoBehaviour
     public TextMesh scoreText;
     public float score = 0;
     public float increaseScore = 1;
-//public int multiplier = 1;
+
+    private OverdoseBar overdoseBar;
+    public TextMesh multiplicatorText;
+
+    public TextMesh drugLevelText;
+
+    private int multiplicator = 1;
 
 /// <summary>
 /// 3 - Line on which the character is
@@ -31,8 +37,11 @@ public class CharacterScript : MonoBehaviour
 // Use this for initialization
     void Start ()
     {
-        if (!isEnemy) 
+        if (!isEnemy) {
             InvokeRepeating ("addScore", 1.0f, 1.0f);
+            Debug.Log ("pouet");
+            overdoseBar = new OverdoseBar ();
+        }
     }
         
     public void setLine (int newLine)
@@ -61,13 +70,36 @@ public class CharacterScript : MonoBehaviour
 
     void addScore ()
     {
-        score += increaseScore + (Time.time / 10);
-        UpdateScore ();
+        score += (increaseScore + (Time.time / 10)) * multiplicator;
+        updateScore ();
     }
 
-    void UpdateScore ()
+    void updateScore ()
     {
         scoreText.text = "Score: " + (int)score;
+    }
+
+    void addDrugLevel(int drugLevel)
+    {
+        multiplicator += overdoseBar.addDrugLevel (drugLevel);
+        updateDrugLevel ();
+        updateMultiplicator ();
+    }
+    
+    void reduceDrugLevel(int drugLevel)
+    {
+        overdoseBar.reduceDrugLevel (drugLevel);
+        updateDrugLevel ();
+    }
+
+    void updateMultiplicator ()
+    {
+        multiplicatorText.text = "x" + multiplicator;
+    }
+    
+    void updateDrugLevel ()
+    {
+        drugLevelText.text = "" + overdoseBar.drugLevel;
     }
 
 // Update is called once per frame
@@ -174,15 +206,17 @@ public class CharacterScript : MonoBehaviour
                     switch (drug.type) {
                         case "Speed":
                             boost = ConstantScript.BOOST_LENGTH;
-                            score += increaseScore;
+                            addDrugLevel(drug.drugPoint);
+                            score += increaseScore * multiplicator;
                             break;
                         case "LSD":
                             boost = -ConstantScript.BOOST_LENGTH / 3;
-                            score += increaseScore;
+                            addDrugLevel(drug.drugPoint);
+                            score += increaseScore * multiplicator;
                             break;
                         case "Water":
                             Debug.Log ("WATER : TODO !!!");
-        //                          boost = -ConstantScript.BOOST_LENGTH/2;
+                            reduceDrugLevel(drug.drugPoint);
                             break;
                         default :
                             Debug.Log ("WARNING !!! should never happen !!! drug has no type");
@@ -198,6 +232,9 @@ public class CharacterScript : MonoBehaviour
                     //Supprimer les bonus des drogues
                     print ("collision avec un ennemi");
                     boost = -ConstantScript.BOOST_LENGTH / 2 + boost<0?boost:0;
+
+                    multiplicator = 1;
+                    updateMultiplicator();
 
                     Destroy (enemy.gameObject);
                 }
