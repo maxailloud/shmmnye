@@ -12,7 +12,7 @@ public class GameScript : MonoBehaviour
 		drugsTime = 0.0f;
 		drugsCoolDown = 1.0f;
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
