@@ -28,11 +28,16 @@ public class CharacterScript : MonoBehaviour
 /// </summary>
     public int line = 3;
 
+	public Animator animator;
+
+	public float timer = 5.0f;
+
 // Use this for initialization
     void Start ()
     {
         if (!isEnemy) 
             InvokeRepeating ("addScore", 1.0f, 1.0f);
+		animator = GetComponent<Animator> ();
     }
         
     public void setLine (int newLine)
@@ -166,22 +171,33 @@ public class CharacterScript : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D otherCollider)
     {
-        if (!isEnemy) {
+        if (!isEnemy) 
+		{
+			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+
             DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
             if (drug != null) {
                 if (drug.line == line) {
                     Debug.Log ("score in OnTriggerEnter2D " + score);
                     switch (drug.type) {
                         case "Speed":
+							animator.SetTrigger("Pic");
+							timer = 1.0f;
                             boost = ConstantScript.BOOST_LENGTH;
                             score += increaseScore;
+							//yield WaitForSeconds(1);
                             break;
                         case "LSD":
+							animator.SetTrigger("Drug");
+							timer = 1.0f;
                             boost = -ConstantScript.BOOST_LENGTH / 3;
                             score += increaseScore;
+							//yield WaitForSeconds(1);
                             break;
                         case "Water":
                             Debug.Log ("WATER : TODO !!!");
+							animator.SetTrigger("Drug");
         //                          boost = -ConstantScript.BOOST_LENGTH/2;
                             break;
                         default :
@@ -198,7 +214,7 @@ public class CharacterScript : MonoBehaviour
                     //Supprimer les bonus des drogues
                     print ("collision avec un ennemi");
                     boost = -ConstantScript.BOOST_LENGTH / 2;
-
+					animator.SetTrigger("Fetus");
                     Destroy (enemy.gameObject);
                 }
                 return;

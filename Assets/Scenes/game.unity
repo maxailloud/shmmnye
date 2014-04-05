@@ -792,6 +792,8 @@ MonoBehaviour:
   score: 0
   increaseScore: 1
   line: 3
+  animator: {fileID: 0}
+  timer: 1
 --- !u!61 &697457291
 BoxCollider2D:
   m_ObjectHideFlags: 0
