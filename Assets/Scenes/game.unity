@@ -567,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 1
   speed: {x: 0, y: 0}
+  line: 1
 --- !u!61 &1975959100
 BoxCollider2D:
   m_ObjectHideFlags: 0
