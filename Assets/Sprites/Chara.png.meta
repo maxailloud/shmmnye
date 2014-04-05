@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: 1984d6a00b9ba744aac42b00db091da0
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 512
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: Chara_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 425
+        width: 72
+        height: 86
+      alignment: 9
+      pivot: {x: .444944978, y: .30641067}
+    - name: Chara_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 425
+        width: 110
+        height: 85
+      alignment: 9
+      pivot: {x: .463963956, y: .615032256}
+    - name: Chara_2
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 419
+        width: 113
+        height: 91
+      alignment: 9
+      pivot: {x: .112247027, y: .814684868}
+    - name: Chara_3
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 468
+        width: 44
+        height: 42
+      alignment: 9
+      pivot: {x: .165896326, y: .487271994}
+    - name: Chara_4
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 433
+        width: 77
+        height: 77
+      alignment: 9
+      pivot: {x: .81171447, y: .840341926}
+    - name: Chara_5
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 417
+        width: 56
+        height: 93
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Chara_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 355
+        width: 119
+        height: 60
+      alignment: 9
+      pivot: {x: .522504807, y: .549098194}
+    - name: Chara_7
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 303
+        width: 89
+        height: 112
+      alignment: 9
+      pivot: {x: .845362961, y: .884606779}
+    - name: Chara_8
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 370
+        width: 27
+        height: 45
+      alignment: 9
+      pivot: {x: .805307448, y: .851103365}
+    - name: Chara_9
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 350
+        width: 75
+        height: 65
+      alignment: 9
+      pivot: {x: .130578607, y: .841709077}
+  spritePackingTag: 
+  userData: 
