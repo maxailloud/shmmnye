@@ -169,39 +169,42 @@ public class CharacterScript : MonoBehaviour
 				DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
 				if (drug != null)
 				{
-					Debug.Log ("score in OnTriggerEnter2D " + score);
-					switch (drug.type)
-					{
-						case "Speed" :
-							Debug.Log("Speed");
-							boost = ConstantScript.BOOST_LENGTH;
-							score += increaseScore;
-							break;
-						case "LSD" :
-							Debug.Log("LSD");
-							boost = -ConstantScript.BOOST_LENGTH/2;
-							score += increaseScore;
-							break;
-						case "Water" :
-							Debug.Log("WATER : TODO !!!");
-	//							boost = -ConstantScript.BOOST_LENGTH/2;
-							break;
-						default :
-								Debug.Log("WARNING !!! should never happen !!! drug has no type");
+					if (drug.line == line) {
+						Debug.Log ("score in OnTriggerEnter2D " + score);
+						switch (drug.type)
+						{
+							case "Speed" :
+								Debug.Log("Speed");
+								boost = ConstantScript.BOOST_LENGTH;
+								score += increaseScore;
 								break;
+							case "LSD" :
+								Debug.Log("LSD");
+								boost = -ConstantScript.BOOST_LENGTH/3;
+								score += increaseScore;
+								break;
+							case "Water" :
+								Debug.Log("WATER : TODO !!!");
+		//							boost = -ConstantScript.BOOST_LENGTH/2;
+								break;
+							default :
+									Debug.Log("WARNING !!! should never happen !!! drug has no type");
+									break;
+						}
+						Destroy(drug.gameObject);
 					}
-					Destroy(drug.gameObject);
 					return;
 				}
 				CharacterScript enemy = otherCollider.gameObject.GetComponent<CharacterScript>();
 				if(enemy != null)
 				{
-					//Supprimer les bonus des drogues
-					print("collision avec un ennemi");
-					boost = -ConstantScript.BOOST_LENGTH/2;
+					if (enemy.line == line) {
+						//Supprimer les bonus des drogues
+						print("collision avec un ennemi");
+						boost = -ConstantScript.BOOST_LENGTH/2;
 
-					Destroy(enemy.gameObject);
-
+						Destroy(enemy.gameObject);
+					}
 					return;
 				}
 			}

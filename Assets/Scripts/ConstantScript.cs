@@ -13,6 +13,6 @@ public class ConstantScript
 	public const float LINE_1 = -4.8f;
 	public const float LINE_2 = -3.85f;
 	public const float LINE_3 = -3.1f;
-	public const float LINE_4 = -2.55f;
-	public const float LINE_5 = -2.2f;
+	public const float LINE_4 = -2.5f;
+	public const float LINE_5 = -2.1f;
 }
