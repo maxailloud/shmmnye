@@ -51,8 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48835def8abf629469067f81aabfcae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemy: 1
-  speed: {x: 0, y: 0}
+  isEnemy: 0
+  staticMovement: {x: 0, y: 0, z: 0}
+  movement: {x: 0, y: 0, z: 0}
+  lineCharacter: 0
+  lineEnnemy: 0
+  boost: 0
   line: 3
 --- !u!212 &21200000
 SpriteRenderer:
