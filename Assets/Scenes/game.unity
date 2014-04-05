@@ -337,6 +337,10 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 77283b4f625146a4c9576afb7c164e46, type: 2}
+      propertyPath: line
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77283b4f625146a4c9576afb7c164e46, type: 2}
   m_RootGameObject: {fileID: 1975959095}
@@ -571,7 +575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 1
   speed: {x: 0, y: 0}
-  line: 1
+  line: 3
 --- !u!61 &1975959100
 BoxCollider2D:
   m_ObjectHideFlags: 0

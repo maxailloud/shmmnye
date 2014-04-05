@@ -17,7 +17,7 @@ public class CharacterScript : MonoBehaviour
 		/// <summary>
 		/// 3 - Line on which the character is
 		/// </summary>
-		public int line = 1;
+		public int line = 3;
 	
 		// Use this for initialization
 		void Start ()
@@ -30,35 +30,33 @@ public class CharacterScript : MonoBehaviour
 		{	
 				float shiftY = 0;
 
-				if (Input.GetKey (KeyCode.UpArrow)) {
+				if (Input.GetKeyUp (KeyCode.UpArrow)) {
 						shiftY = changeLine (1);
-				} else if (Input.GetKey (KeyCode.DownArrow)) {
+				} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
 						shiftY = changeLine (-1);
 				}
 
 				// Update 1 - Move the character
 				Vector3 movement = new Vector3 (
-					-ConstantScript.RUNNER_SPEED,
+					-ConstantScript.RUNNER_SPEED * Time.deltaTime,
 					shiftY,
 					0);
 
-				movement *= Time.deltaTime;
 				transform.Translate (movement);
 		}
 
 		float changeLine (int direction)
 		{
-				Debug.Log (direction);
 				float shiftY = 0;
 				float currentLineY = getLineY (line);
+
 				if (1 == direction && 5 > line) {
 						line++;
 						shiftY = getLineY (line) - currentLineY;
 				} else if (-1 == direction && 1 < line) {
 						line--;
-						shiftY = getLineY (line) - currentLineY ;
+						shiftY = getLineY (line) - currentLineY;
 				}
-				Debug.Log (shiftY);
 
 				return shiftY;
 		}
@@ -90,29 +88,29 @@ public class CharacterScript : MonoBehaviour
 				return y;
 		}
 
-		void OnTriggerEnter2D(Collider2D otherCollider)
+		void OnTriggerEnter2D (Collider2D otherCollider)
 		{
 				DrugScript obj = otherCollider.gameObject.GetComponent<DrugScript> ();
 				if (obj != null) {
-					switch (obj.type) {
-						case "Speed" :
-							Debug.Log("Speed");
-							break;
-						case "LSD" :
-							Debug.Log("LSD");
-							break;
+						switch (obj.type) {
+						case "Speed":
+								Debug.Log ("Speed");
+								break;
+						case "LSD":
+								Debug.Log ("LSD");
+								break;
 						default :
-							Debug.Log("WARNING !!! should never happen !!! drug has no type");
-							break;
-					}
-					Destroy(obj.gameObject);
-					return;
+								Debug.Log ("WARNING !!! should never happen !!! drug has no type");
+								break;
+						}
+						Destroy (obj.gameObject);
+						return;
 				}
 				// Is this another runner ?
 				Debug.Log ("ELSE !!!!!!");
 				CharacterScript obj2 = otherCollider.gameObject.GetComponent<CharacterScript> ();
 				if (obj2 != null) {
-					Debug.Log ("RUNNER !!!!!!");
+						Debug.Log ("RUNNER !!!!!!");
 				}	
 		}
 }
