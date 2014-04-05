@@ -21,7 +21,12 @@ public class CharacterScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Update 1 - Move the character
-//		rigidbody2D.velocity = new Vector2 (-ConstantScript.RUNNER_SPEED,0);
-		transform.Translate(new Vector3 (-ConstantScript.RUNNER_SPEED/100,0,0) );
+		Vector3 movement = new Vector3(
+			-ConstantScript.RUNNER_SPEED,
+			0,
+			0);
+		
+		movement *= Time.deltaTime;
+		transform.Translate(movement);
 	}
 }

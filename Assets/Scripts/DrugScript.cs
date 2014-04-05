@@ -15,9 +15,13 @@ public class DrugScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// Update 1 - Move the drug
-//		rigidbody2D.velocity = new Vector2(-ConstantScript.TRACK_SPEED,0);
-		transform.Translate(new Vector3 (-ConstantScript.TRACK_SPEED/100,0,0) );
-
+		// Movement
+		Vector3 movement = new Vector3(
+			-ConstantScript.TRACK_SPEED,
+			0,
+			0);
+		
+		movement *= Time.deltaTime;
+		transform.Translate(movement);
 	}
 }
