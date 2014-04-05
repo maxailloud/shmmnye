@@ -74,6 +74,7 @@ GameObject:
   - 4: {fileID: 400008}
   - 114: {fileID: 11400000}
   - 95: {fileID: 9500000}
+  - 61: {fileID: 6100000}
   m_Layer: 0
   m_Name: CharacterAnim
   m_TagString: Untagged
@@ -337,6 +338,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
+--- !u!61 &6100000
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: .5, y: .5}
+  m_Center: {x: .660000026, y: -1}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 2
@@ -363,7 +375,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 0
-  speed: {x: 0, y: 0}
+  staticMovement: {x: 0, y: 0, z: 0}
+  movement: {x: 0, y: 0, z: 0}
+  lineCharacter: 0
+  lineEnnemy: 0
+  boost: 0
+  score: 0
+  increaseScore: 1
+  line: 3
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
