@@ -20,6 +20,7 @@ public class CharacterScript : MonoBehaviour
 
 	public int boost = 0;
 
+    public TextMesh scoreText;
 		public float score = 0;
 		public float increaseScore = 1;
 		//public int multiplier = 1;
@@ -64,7 +65,13 @@ public class CharacterScript : MonoBehaviour
 		
 		void addScore () {
         score += increaseScore + (Time.time / 10);
+        UpdateScore ();
 		}
+
+    void UpdateScore ()
+    {
+        scoreText.text = "Score: " + (int)score;
+    }
 
 		// Update is called once per frame
 		void Update ()
