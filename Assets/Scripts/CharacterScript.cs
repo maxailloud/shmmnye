@@ -29,6 +29,12 @@ public class CharacterScript : MonoBehaviour
 
     private int multiplicator = 1;
 
+    private Transform audioLsd;
+    private Transform audioSpeed;
+    private Transform audioWater;
+    private Transform audioChoc;
+
+
 /// <summary>
 /// 3 - Line on which the character is
 /// </summary>
@@ -39,8 +45,20 @@ public class CharacterScript : MonoBehaviour
     {
         if (!isEnemy) {
             InvokeRepeating ("addScore", 1.0f, 1.0f);
-            Debug.Log ("pouet");
             overdoseBar = new OverdoseBar ();
+            var childList = GetComponentsInChildren<Transform>();
+            int count = childList.Length;
+            while (count > 0)
+            {
+                count--;
+                Debug.Log("name = " + childList[count].name);
+                if (childList[count].name == "Audio3 - Boire") audioWater = childList[count];
+                if (childList[count].name == "Audio2 - LSD - Cachets") audioLsd = childList[count];
+                if (childList[count].name == "Audio1 - Speed - Injection") audioSpeed = childList[count];
+                if (childList[count].name == "Audio4 - Choc") audioChoc = childList[count];
+
+            }
+
         }
     }
         
@@ -202,20 +220,22 @@ public class CharacterScript : MonoBehaviour
             DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
             if (drug != null) {
                 if (drug.line == line) {
-                    Debug.Log ("score in OnTriggerEnter2D " + score);
+                    Debug.Log ("play sound");
                     switch (drug.type) {
                         case "Speed":
+                            audioSpeed.audio.Play();
                             boost = ConstantScript.BOOST_LENGTH;
                             addDrugLevel(drug.drugPoint);
                             score += increaseScore * multiplicator;
                             break;
                         case "LSD":
+                            audioLsd.audio.Play();
                             boost = -ConstantScript.BOOST_LENGTH / 3;
                             addDrugLevel(drug.drugPoint);
                             score += increaseScore * multiplicator;
                             break;
                         case "Water":
-                            Debug.Log ("WATER : TODO !!!");
+                            audioWater.audio.Play();
                             reduceDrugLevel(drug.drugPoint);
                             break;
                         default :
@@ -231,6 +251,7 @@ public class CharacterScript : MonoBehaviour
                 if (enemy.line == line) {
                     //Supprimer les bonus des drogues
                     print ("collision avec un ennemi");
+                    audioChoc.audio.Play();
                     boost = -ConstantScript.BOOST_LENGTH / 2;
 
                     multiplicator = 1;

@@ -384,6 +384,8 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   score: 0
   increaseScore: 1
+  multiplicatorText: {fileID: 0}
+  drugLevelText: {fileID: 0}
   line: 3
 --- !u!114 &11400002
 MonoBehaviour:
