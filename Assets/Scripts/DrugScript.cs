@@ -40,7 +40,25 @@ public class DrugScript : MonoBehaviour {
 				transform.position.Set(6.604088f, -3.544878f, 0.0f);
 				transform.Translate(1.98f, 2.7f, 0.0f);
 				break;
+			default :
+				Debug.Log("WARNING !!! should never happen !!! in DrugScript : switch(line) ");
+				break;
 		}
+		int randType = Random.Range(1, 3);
+		switch (randType) 
+		{
+			//On fait démarrer la drogue sur une ligne particulière
+			case 1 :
+				type = "LSD";
+				break;
+			case 2 :
+				type = "Speed";
+				break;
+			default :
+				Debug.Log("WARNING !!! should never happen !!! in DrugScript : switch(randType) ");
+				break;
+		}
+
 
 		Destroy(gameObject, 10); // 20sec
 	}

@@ -27,11 +27,31 @@ public class CharacterScript : MonoBehaviour {
 			0);
 		
 		movement *= Time.deltaTime;
-		transform.Translate(movement);
+//		transform.Translate(movement);
 	}
 
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
-		Debug.Log("pouet");
-	}
+		DrugScript obj = otherCollider.gameObject.GetComponent<DrugScript> ();
+		if (obj != null) {
+			switch (obj.type) {
+				case "Speed" :
+					Debug.Log("Speed");
+					break;
+				case "LSD" :
+					Debug.Log("LSD");
+					break;
+				default :
+					Debug.Log("WARNING !!! should never happen !!! drug has no type");
+					break;
+			}
+			Destroy(obj.gameObject);
+			return;
+		}
+		// Is this another runner ?
+		Debug.Log ("ELSE !!!!!!");
+		CharacterScript obj2 = otherCollider.gameObject.GetComponent<CharacterScript> ();
+		if (obj2 != null) {
+			Debug.Log ("RUNNER !!!!!!");
+		}	}
 }
