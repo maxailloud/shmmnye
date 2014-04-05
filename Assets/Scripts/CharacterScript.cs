@@ -79,29 +79,31 @@ public class CharacterScript : MonoBehaviour
 			transform.Translate (mov);
 			return;
 		}
-			float shiftY = 0;
 
-			if (Input.GetKeyUp (KeyCode.UpArrow)) {
-					shiftY = changeLine (1);
-			} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
-					shiftY = changeLine (-1);
-			}
+		float shiftY = 0;
 
-	float modif = 0;
-	if (boost > 0) {
-		modif = ConstantScript.BOOST_SPEED;
-		boost--;
-	}else if ( boost < 0) {
-		modif = -ConstantScript.BOOST_SPEED;
-		boost++;
-	}
-	// Update 1 - Move the character
-			Vector3 mov2 = new Vector3 (
-				(-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
-				shiftY,
-				0);
+		if (Input.GetKeyUp (KeyCode.UpArrow)) {
+				shiftY = changeLine (1);
+		} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+				shiftY = changeLine (-1);
+		}
 
-			transform.Translate (mov2);
+		float modif = 0;
+		if (boost > 0) {
+			modif = ConstantScript.BOOST_SPEED;
+			boost--;
+		}else if ( boost < 0) {
+			modif = -ConstantScript.BOOST_SPEED;
+			boost++;
+		}
+
+		// Update 1 - Move the character
+		Vector3 mov2 = new Vector3 (
+			(-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
+			shiftY,
+			0);
+
+		transform.Translate (mov2);
 
 
 		if (!renderer.IsVisibleFrom(Camera.main)) 
