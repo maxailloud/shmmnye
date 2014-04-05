@@ -197,7 +197,7 @@ public class CharacterScript : MonoBehaviour
                 if (enemy.line == line) {
                     //Supprimer les bonus des drogues
                     print ("collision avec un ennemi");
-                    boost = -ConstantScript.BOOST_LENGTH / 2 + boost<0?boost:0;
+                    boost = -ConstantScript.BOOST_LENGTH / 2;
 
                     Destroy (enemy.gameObject);
                 }
