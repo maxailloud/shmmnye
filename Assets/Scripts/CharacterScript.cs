@@ -66,43 +66,50 @@ public class CharacterScript : MonoBehaviour
 		}
 	}
 	
-		// Update is called once per frame
-		void Update ()
-		{	
-			if (isEnemy) 
-			{
-				Vector3 mov = new Vector3 (
-					-ConstantScript.RUNNER_SPEED * Time.deltaTime,
-					0,
-					0);
-			
-				transform.Translate (mov);
-				return;
+	// Update is called once per frame
+	void Update ()
+	{	
+		if (isEnemy) 
+		{
+			Vector3 mov = new Vector3 (
+				-ConstantScript.RUNNER_SPEED * Time.deltaTime,
+				0,
+				0);
+		
+			transform.Translate (mov);
+			return;
+		}
+			float shiftY = 0;
+
+			if (Input.GetKeyUp (KeyCode.UpArrow)) {
+					shiftY = changeLine (1);
+			} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+					shiftY = changeLine (-1);
 			}
-				float shiftY = 0;
 
-				if (Input.GetKeyUp (KeyCode.UpArrow)) {
-						shiftY = changeLine (1);
-				} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
-						shiftY = changeLine (-1);
-				}
+	float modif = 0;
+	if (boost > 0) {
+		modif = ConstantScript.BOOST_SPEED;
+		boost--;
+	}else if ( boost < 0) {
+		modif = -ConstantScript.BOOST_SPEED;
+		boost++;
+	}
+	// Update 1 - Move the character
+			Vector3 mov2 = new Vector3 (
+				(-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
+				shiftY,
+				0);
 
-		float modif = 0;
-		if (boost > 0) {
-			modif = ConstantScript.BOOST_SPEED;
-			boost--;
-		}else if ( boost < 0) {
-			modif = -ConstantScript.BOOST_SPEED;
-			boost++;
+			transform.Translate (mov2);
+
+
+		if (!renderer.IsVisibleFrom(Camera.main)) 
+		{
+			print("Mort");
 		}
-		// Update 1 - Move the character
-				Vector3 mov2 = new Vector3 (
-					(-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
-					shiftY,
-					0);
 
-				transform.Translate (mov2);
-		}
+	}
 
 		float changeLine (int direction)
 		{
