@@ -5,24 +5,24 @@ public class CharacterScript : MonoBehaviour
 {
 
 	/// <summary>
-	/// 1 - The type of the character
-	/// </summary>
-	public bool isEnemy = false;
+		/// 1 - The type of the character
+		/// </summary>
+		public bool isEnemy = false;
 
-	/// <summary>
-	/// 2 - The movement speed of the character
-	/// </summary>
-//	public Vector3 staticMovement;
-	public Vector3 movement;
+		/// <summary>
+		/// 2 - The movement speed of the character
+		/// </summary>
+		public Vector3 staticMovement;
+		public Vector3 movement;
 
-	public int lineCharacter;
-	public int lineEnnemy;
+		public int lineCharacter;
+		public int lineEnnemy;
 
-	public int boost = 0;
+		public int boost = 0;
 
-	public float score = 0;
-	public float points = 1.0f;
-	//public int multiplier = 1;
+		public float score = 0;
+		public float increaseScore = 1;
+		//public int multiplier = 1;
 
 		/// <summary>
 		/// 3 - Line on which the character is
@@ -56,6 +56,8 @@ public class CharacterScript : MonoBehaviour
 					Debug.Log("WARNING !!! (in characterScript - start() )");
 					break;
 			}
+
+			InvokeRepeating("addScore", 1.0f, 1.0f);
 		}
 
 	}
@@ -74,39 +76,39 @@ public class CharacterScript : MonoBehaviour
 		}
 		float shiftY = 0;
 
-		if (Input.GetKeyUp (KeyCode.UpArrow)) {
-				shiftY = changeLine (1);
-		} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
-				shiftY = changeLine (-1);
+			if (Input.GetKeyUp (KeyCode.UpArrow)) {
+					shiftY = changeLine (1);
+			} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+					shiftY = changeLine (-1);
+			}
+
+			float modif = 0;
+			if (boost > 0) {
+				modif = ConstantScript.BOOST_SPEED;
+				boost--;
+			}else if ( boost < 0) {
+				modif = -ConstantScript.BOOST_SPEED;
+				boost++;
+			}
+
+			// Update 1 - Move the character
+			Vector3 mov2 = new Vector3 (
+				(-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
+				shiftY,
+				0);
+
+			transform.Translate (mov2);
+
+
+			if (!renderer.IsVisibleFrom(Camera.main))
+			{
+				Application.LoadLevel("death");
+			}
 		}
 
-		float modif = 0;
-		if (boost > 0) {
-			modif = ConstantScript.BOOST_SPEED;
-			boost--;
-		}else if ( boost < 0) {
-			modif = -ConstantScript.BOOST_SPEED;
-			boost++;
+		void addScore () {
+			score += increaseScore;
 		}
-
-		// Update 1 - Move the character
-		Vector3 mov2 = new Vector3 (
-			(-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
-			shiftY,
-			0);
-
-		transform.Translate (mov2);
-
-
-		if (!renderer.IsVisibleFrom(Camera.main))
-		{
-			print("Mort");
-			Application.LoadLevel("death");
-		}
-
-		score += points * Time.time;
-		print ((int)score);
-	}
 
 		float changeLine (int direction)
 		{
@@ -163,12 +165,12 @@ public class CharacterScript : MonoBehaviour
 					case "Speed" :
 						Debug.Log("Speed");
 						boost = ConstantScript.BOOST_LENGTH;
-					    score += points + 0.1f * Time.time;
+						score += increaseScore + increaseScore * Time.time;
 						break;
 					case "LSD" :
 						Debug.Log("LSD");
 						boost = -ConstantScript.BOOST_LENGTH/2;
-						score += points + 0.1f * Time.time;
+						score += increaseScore + increaseScore * Time.time;
 						break;
 					case "Water" :
 						Debug.Log("WATER : TODO !!!");
