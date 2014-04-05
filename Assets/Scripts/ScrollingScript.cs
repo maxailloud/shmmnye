@@ -10,7 +10,7 @@ public class ScrollingScript : MonoBehaviour
 	{
 		// Movement
 		Vector3 movement = new Vector3(
-			-ConstantScript.TRACK_SPEED,
+			-ConstantScript.TRACK_SPEED/100,
 			0,
 			0);
 		
