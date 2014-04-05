@@ -9,10 +9,10 @@ public class CharacterScript : MonoBehaviour
 		/// </summary>
 		public bool isEnemy = false;
 
-		/// <summary>
-		/// 2 - The movement speed of the character
-		/// </summary>
-		public Vector2 speed;
+	/// <summary>
+	/// 2 - The movement speed of the character
+	/// </summary>
+	public int boost = 0;
 
 		/// <summary>
 		/// 3 - Line on which the character is
@@ -36,9 +36,17 @@ public class CharacterScript : MonoBehaviour
 						shiftY = changeLine (-1);
 				}
 
-				// Update 1 - Move the character
+		float modif = 0;
+		if (boost > 0) {
+			modif = ConstantScript.BOOST_SPEED;
+			boost--;
+		}else if ( boost < 0) {
+			modif = -ConstantScript.BOOST_SPEED;
+			boost++;
+		}
+		// Update 1 - Move the character
 				Vector3 movement = new Vector3 (
-					-ConstantScript.RUNNER_SPEED,
+					-ConstantScript.RUNNER_SPEED + modif,
 					shiftY,
 					0);
 
@@ -89,30 +97,27 @@ public class CharacterScript : MonoBehaviour
 
 				return y;
 		}
+	
 
-		void OnTriggerEnter2D(Collider2D otherCollider)
-		{
-				DrugScript obj = otherCollider.gameObject.GetComponent<DrugScript> ();
-				if (obj != null) {
-					switch (obj.type) {
-						case "Speed" :
-							Debug.Log("Speed");
-							break;
-						case "LSD" :
-							Debug.Log("LSD");
-							break;
-						default :
-							Debug.Log("WARNING !!! should never happen !!! drug has no type");
-							break;
-					}
-					Destroy(obj.gameObject);
-					return;
-				}
-				// Is this another runner ?
-				Debug.Log ("ELSE !!!!!!");
-				CharacterScript obj2 = otherCollider.gameObject.GetComponent<CharacterScript> ();
-				if (obj2 != null) {
-					Debug.Log ("RUNNER !!!!!!");
-				}	
+	void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		DrugScript obj = otherCollider.gameObject.GetComponent<DrugScript> ();
+		if (obj != null) {
+			switch (obj.type) {
+				case "Speed" :
+					Debug.Log("Speed");
+					boost = ConstantScript.BOOST_LENGTH;
+					break;
+				case "LSD" :
+					Debug.Log("LSD");
+					boost = -ConstantScript.BOOST_LENGTH/2;
+					break;
+				default :
+					Debug.Log("WARNING !!! should never happen !!! drug has no type");
+					break;
+			}
+			Destroy(obj.gameObject);
+			return;
 		}
+	}
 }
