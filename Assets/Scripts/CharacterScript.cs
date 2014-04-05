@@ -19,13 +19,16 @@ public class CharacterScript : MonoBehaviour
     public int boost = 0;
 
     public TextMesh scoreText;
+    public TextMesh scoreText3D;
     public float score = 0;
     public float increaseScore = 1;
 
     private OverdoseBar overdoseBar;
     public TextMesh multiplicatorText;
+    public TextMesh multiplicatorText3D;
 
     public TextMesh drugLevelText;
+    public TextMesh drugLevelText3D;
 
     private int multiplicator = 1;
 
@@ -76,7 +79,8 @@ public class CharacterScript : MonoBehaviour
 
     void updateScore ()
     {
-        scoreText.text = "Score: " + (int)score;
+        scoreText.text   = "Score: " + (int)score;
+        scoreText3D.text = "Score: " + (int)score;
     }
 
     void addDrugLevel(int drugLevel)
@@ -94,12 +98,14 @@ public class CharacterScript : MonoBehaviour
 
     void updateMultiplicator ()
     {
-        multiplicatorText.text = "x" + multiplicator;
+        multiplicatorText.text   = "x" + multiplicator;
+        multiplicatorText3D.text = "x" + multiplicator;
     }
     
     void updateDrugLevel ()
     {
-        drugLevelText.text = "" + overdoseBar.drugLevel;
+        drugLevelText.text   = "" + overdoseBar.drugLevel;
+        drugLevelText3D.text = "" + overdoseBar.drugLevel;
     }
 
 // Update is called once per frame
