@@ -31,38 +31,66 @@ public class CharacterScript : MonoBehaviour
 		public int line = 3;
 
 		// Use this for initialization
-		void Start ()
+		void Awake ()
 		{
+		Debug.Log ("character script");
 			if (isEnemy)
 			{
-				lineEnnemy = Random.Range(1, 6);
-				switch(lineEnnemy)
-				{
-					case 1 :
-						transform.Translate(13f, ConstantScript.LINE_1, 0.0f);
-						break;
-					case 2 :
-						transform.Translate(13f, ConstantScript.LINE_2, 0.0f);
-						break;
-					case 3 :
-						transform.Translate(13f, ConstantScript.LINE_3, 0.0f);
-						break;
-					case 4 :
-						transform.Translate(13f, ConstantScript.LINE_4, 0.0f);
-						break;
-					case 5 :
-						transform.Translate(13f, ConstantScript.LINE_5, 0.0f);
-						break;
-					default:
-						Debug.Log("WARNING !!! (in characterScript - start() )");
-						break;
-				}
+//				//lineEnnemy = Random.Range(1, 6);
+//				switch(lineEnnemy)
+//				{
+//					case 1 :
+//						transform.Translate(13f, ConstantScript.LINE_1, 0.0f);
+//						break;
+//					case 2 :
+//						transform.Translate(13f, ConstantScript.LINE_2, 0.0f);
+//						break;
+//					case 3 :
+//						transform.Translate(13f, ConstantScript.LINE_3, 0.0f);
+//						break;
+//					case 4 :
+//						transform.Translate(13f, ConstantScript.LINE_4, 0.0f);
+//						break;
+//					case 5 :
+//						transform.Translate(13f, ConstantScript.LINE_5, 0.0f);
+//						break;
+//					default:
+//						Debug.Log("WARNING !!! (in characterScript - start() )");
+//						break;
+//				}
 			}
 			else {
 				InvokeRepeating("addScore", 1.0f, 1.0f);
 			}
 		}
 		
+		public void setLine(int newLine) {
+		//lineEnnemy = Random.Range(1, 6);
+
+		switch(line=newLine)
+		{
+		case 1 :
+			transform.Translate(13f, ConstantScript.LINE_1, 0.0f);
+			break;
+		case 2 :
+			transform.Translate(13f, ConstantScript.LINE_2, 0.0f);
+			break;
+		case 3 :
+			transform.Translate(13f, ConstantScript.LINE_3, 0.0f);
+			break;
+		case 4 :
+			transform.Translate(13f, ConstantScript.LINE_4, 0.0f);
+			break;
+		case 5 :
+			transform.Translate(13f, ConstantScript.LINE_5, 0.0f);
+			break;
+		default:
+			Debug.Log("WARNING !!! (in characterScript - start() )");
+			break;
+		}
+		}
+
+
 		void addScore () {
         score += increaseScore + (Time.time / 10);
         UpdateScore ();

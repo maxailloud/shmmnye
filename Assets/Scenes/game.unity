@@ -422,6 +422,13 @@ MonoBehaviour:
   ennemyPrefab: {fileID: 400008, guid: a004a0d1a98e90149890ed016daad827, type: 2}
   nextObstacle: 0
   coolDown: 0
+  chanceOfEnnemies: 25
+  chanceOfLSD: 25
+  chanceOfSpeed: 25
+  chanceOfWater: 25
+  changeChancesAndFrequencies: 0
+  ellapsedSeconds: 0
+  characterscript: {fileID: 0}
 --- !u!1 &637881257
 GameObject:
   m_ObjectHideFlags: 0
