@@ -41,19 +41,14 @@ public class CharacterScript : MonoBehaviour
 					-ConstantScript.RUNNER_SPEED,
 					shiftY,
 					0);
-		
+
 				movement *= Time.deltaTime;
 				transform.Translate (movement);
 		}
 
-		void OnTriggerEnter2D (Collider2D otherCollider)
-		{
-				Debug.Log ("pouet");
-		}
-
 		float changeLine (int direction)
 		{
-		Debug.Log (direction);
+				Debug.Log (direction);
 				float shiftY = 0;
 				float currentLineY = getLineY (line);
 				if (1 == direction && 5 > line) {
@@ -93,5 +88,31 @@ public class CharacterScript : MonoBehaviour
 				}
 
 				return y;
+		}
+
+		void OnTriggerEnter2D(Collider2D otherCollider)
+		{
+				DrugScript obj = otherCollider.gameObject.GetComponent<DrugScript> ();
+				if (obj != null) {
+					switch (obj.type) {
+						case "Speed" :
+							Debug.Log("Speed");
+							break;
+						case "LSD" :
+							Debug.Log("LSD");
+							break;
+						default :
+							Debug.Log("WARNING !!! should never happen !!! drug has no type");
+							break;
+					}
+					Destroy(obj.gameObject);
+					return;
+				}
+				// Is this another runner ?
+				Debug.Log ("ELSE !!!!!!");
+				CharacterScript obj2 = otherCollider.gameObject.GetComponent<CharacterScript> ();
+				if (obj2 != null) {
+					Debug.Log ("RUNNER !!!!!!");
+				}	
 		}
 }

@@ -37,9 +37,24 @@ public class DrugScript : MonoBehaviour
 				case 5:
 						transform.Translate (1.98f, ConstantScript.LINE_5, 0.0f);
 						break;
-				}
+				}	
 
-				Destroy (gameObject, 10); // 20sec
+				int randType = Random.Range(1, 3);
+				switch (randType) 
+				{
+					//On fait démarrer la drogue sur une ligne particulière
+					case 1 :
+						type = "LSD";
+						break;
+					case 2 :
+						type = "Speed";
+						break;
+					default :
+						Debug.Log("WARNING !!! should never happen !!! in DrugScript : switch(randType) ");
+						break;
+				}	
+		
+				Destroy(gameObject, 10); // 20sec
 		}
 	
 		// Update is called once per frame
