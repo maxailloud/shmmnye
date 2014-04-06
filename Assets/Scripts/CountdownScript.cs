@@ -6,7 +6,7 @@ public class CountdownScript : MonoBehaviour {
     public TextMesh countdownText;
     public TextMesh countdownText3D;
     
-    private float timer = 4; // set duration time in seconds in the Inspector
+    private float timer = 4;
 
     void Start() {
         countdownText.fontSize   = 234;

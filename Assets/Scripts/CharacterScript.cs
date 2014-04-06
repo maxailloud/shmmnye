@@ -71,7 +71,7 @@ public class CharacterScript : MonoBehaviour
     void Start ()
     {	
 //        if (!isEnemy) {
-            InvokeRepeating ("addScore", 1.0f, 1.0f);
+            InvokeRepeating ("addScore", 4.0f, 1.0f);
 
 			animator = GetComponent<Animator> ();
 
