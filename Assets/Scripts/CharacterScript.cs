@@ -273,10 +273,10 @@ public class CharacterScript : MonoBehaviour
 
         if (Input.GetKeyUp (KeyCode.UpArrow)) {
             shiftY = changeLine (1);
-            shiftZ = -1f;
+            shiftZ = 1f;
         } else if (Input.GetKeyUp (KeyCode.DownArrow)) {
             shiftY = changeLine (-1);
-            shiftZ = 1f;
+            shiftZ = -1f;
         }
 
         if (speedDuration > 0) {
@@ -284,6 +284,8 @@ public class CharacterScript : MonoBehaviour
         } else {
             ConstantScript.GAME_SPEED = 1f;
             ConstantScript.updateValue();
+            audioSpeedBack.audio.Stop();
+            audioBack.audio.pitch = 1f;
             speedDuration = 0;
         }
 
@@ -378,6 +380,7 @@ public class CharacterScript : MonoBehaviour
                         case "Speed":
 							animator.SetTrigger("Pic");
                             audioSpeed.audio.Play();
+                            audioSpeedBack.audio.PlayDelayed(audioSpeed.audio.clip.length);
                             boost = ConstantScript.BOOST_LENGTH;
                             addDrugLevel(drug.drugPoint);
                             score += increaseScore * multiplicator;
@@ -393,6 +396,7 @@ public class CharacterScript : MonoBehaviour
                             score += increaseScore * multiplicator;
                             ConstantScript.GAME_SPEED = 1f / ConstantScript.SPEED_CHANGER;
                             ConstantScript.updateValue();
+                            audioBack.audio.pitch = 0.7f;
                             speedDuration = ConstantScript.SPEED_MAX_LENGTH;
                             break;
                         case "Water":
