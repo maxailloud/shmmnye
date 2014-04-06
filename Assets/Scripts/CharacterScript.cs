@@ -448,6 +448,7 @@ public class CharacterScript : MonoBehaviour
                             speedDuration = ConstantScript.SPEED_MAX_LENGTH;
                             break;
                         case "Water":
+							animator.SetTrigger("Drug");
                             audioWater.audio.Play();
                             reduceDrugLevel(drug.drugPoint);
                             break;
