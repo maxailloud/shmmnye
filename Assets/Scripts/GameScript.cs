@@ -35,7 +35,7 @@ public class GameScript : MonoBehaviour
     void Start ()
     {
         timer = 2.5f;
-        coolDown = 1.5f;
+        coolDown = 1f;
         nextObstacle = 1;
 
         InvokeRepeating ("changeObstacleFrequency", 1.0f, 1.0f);
