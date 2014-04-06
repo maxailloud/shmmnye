@@ -3,11 +3,17 @@ using System.Collections;
 
 public class CharacterScript : MonoBehaviour
 {
-
+	public GameObject fx1;
+	public Camera c0;
+	public Camera c10;
+	public Camera c30;
+	public Camera c50;
+	public Camera c70;
+	public Camera c100;
 /// <summary>
 /// 1 - The type of the character
 /// </summary>
-    public bool isEnemy = false;
+//    public bool isEnemy = false;
 
 /// <summary>
 /// 2 - The movement speed of the character
@@ -24,6 +30,9 @@ public class CharacterScript : MonoBehaviour
     public float increaseScore = 1;
 
     private OverdoseBar overdoseBar;
+
+    public SpriteRenderer overdoseBarSprite;
+
     public TextMesh multiplicatorText;
     public TextMesh multiplicatorText3D;
 
@@ -60,13 +69,14 @@ public class CharacterScript : MonoBehaviour
 
 // Use this for initialization
     void Start ()
-    {
-        if (!isEnemy) {
+    {	
+//        if (!isEnemy) {
             InvokeRepeating ("addScore", 1.0f, 1.0f);
 
 			animator = GetComponent<Animator> ();
 
             overdoseBar = new OverdoseBar ();
+
             var childList = GetComponentsInChildren<Transform>();
             int count = childList.Length;
             while (count > 0)
@@ -84,12 +94,11 @@ public class CharacterScript : MonoBehaviour
                 else if (childList[count].name == "Audio2.0 - Countdown")           audioCountDown = childList[count];
                 else if (childList[count].name == "Audio2.1 - Overdose level up")   audioOverloadLvlUp = childList[count];
             }
-            audioCountDown.audio.Play();
-            audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 4.3f);
+            audioCountDown.audio.PlayDelayed(1f);
+            audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 3.3f);
             audioCroud.audio.Play();
 //            audioBack.audio.pitch = 0.5f;
-        }
-
+//        }
     }
         
     public void setLine (int newLine)
@@ -138,13 +147,169 @@ public class CharacterScript : MonoBehaviour
         }
         updateDrugLevel ();
         updateMultiplicator ();
+
+		switch (overdoseBar.getLevel()) 
+		{
+            case 0: break;
+			case 1:
+				ActivateDeactivate_c10(true);
+				break;
+			case 2:
+				ActivateDeactivate_c30(true);
+				break;
+			case 3 :
+				ActivateDeactivate_c50(true);
+				break;
+			case 4 :
+				ActivateDeactivate_c70(true);
+				break;
+			case 5:
+				ActivateDeactivate_c100(true);
+				break;
+			default :
+                print ("Error : reduceDruglvl !!");
+				break;
+		}
     }
     
     void reduceDrugLevel(int drugLevel)
     {
         overdoseBar.reduceDrugLevel (drugLevel);
         updateDrugLevel ();
+
+		switch (overdoseBar.getLevel()) 
+		{
+			case 0:
+				ActivateDeactivate_c10(false);
+				break;
+			case 1:
+				ActivateDeactivate_c30(false);
+				break;
+			case 2 :
+				ActivateDeactivate_c50(false);
+				break;
+			case 3:
+				ActivateDeactivate_c70(false);
+				break;
+			case 4 :
+				ActivateDeactivate_c100(false);
+				break;
+            case 5 : break;
+			default :
+				print ("Error : reduceDruglvl !!");
+				break;
+		}
     }
+
+	void ActivateDeactivate_c10(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = true;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = true;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c30(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = true;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = true;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c50(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = true;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = true;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c70(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = true;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = true;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c100(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = true;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = true;
+			c100.camera.active = false;
+		}
+	}
 
     void updateMultiplicator ()
     {
@@ -154,21 +319,22 @@ public class CharacterScript : MonoBehaviour
     
     void updateDrugLevel ()
     {
-        drugLevelText.text   = "" + overdoseBar.drugLevel;
-        drugLevelText3D.text = "" + overdoseBar.drugLevel;
+        overdoseBarSprite.transform.localScale = new Vector3(1, overdoseBar.drugLevel / 100f, 1);
+        drugLevelText.text   = "" + overdoseBar.drugLevel + "%";
+        drugLevelText3D.text = "" + overdoseBar.drugLevel + "%";
     }
 
 // Update is called once per frame
     void Update ()
     {
-        if (isEnemy) {
-            Vector3 mov = new Vector3 (
-                    -ConstantScript.ENNEMY_SPEED * Time.deltaTime,
-                    0,
-                    0);
-            transform.Translate (mov);
-            return;
-        }
+//        if (isEnemy) {
+//            Vector3 mov = new Vector3 (
+//                    -ConstantScript.ENNEMY_SPEED * Time.deltaTime,
+//                    0,
+//                    0);
+//            transform.Translate (mov);
+//            return;
+//        }
 
         float shiftY = 0;
         float shiftZ = 0;
@@ -256,8 +422,8 @@ public class CharacterScript : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D otherCollider)
     {
-        if (!isEnemy) 
-		{
+//        if (!isEnemy) 
+//		{
 			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
 
@@ -299,11 +465,14 @@ public class CharacterScript : MonoBehaviour
                     boost = -ConstantScript.BOOST_LENGTH / 2;
 					animator.SetTrigger("Fetus");
                     multiplicator = 1;
+
+					//ActivateDeactivate_c10(false);
+
                     updateMultiplicator();
                     Destroy (enemy.gameObject);
                 }
                 return;
             }
-        }
+//        }
     }
 }

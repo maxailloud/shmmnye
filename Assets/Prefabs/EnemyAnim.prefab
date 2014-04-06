@@ -25,7 +25,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200002}
-  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Torse
   m_TagString: Untagged
@@ -187,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: -.340490401, w: .940248013}
-  m_LocalPosition: {x: .403954744, y: -.321575403, z: .0999999046}
+  m_LocalPosition: {x: .403954744, y: -.321575403, z: .0299999993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400010}
@@ -215,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: .175064787, w: .984556913}
-  m_LocalPosition: {x: .23570323, y: .145048141, z: .699999988}
+  m_LocalPosition: {x: .23570323, y: .145048141, z: .100000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -226,7 +225,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.525797129, y: -.199440956, z: .100000381}
+  m_LocalPosition: {x: -.525797129, y: -.199440956, z: .0299999993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400018}
@@ -249,7 +248,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .426079035, y: -.398880959, z: .0999999046}
+  m_LocalPosition: {x: .426079035, y: -.398880959, z: .0299999993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -260,7 +259,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: .118340209, w: .992973149}
-  m_LocalPosition: {x: -.141055346, y: -.421798944, z: .100000001}
+  m_LocalPosition: {x: -.141055346, y: -.421798944, z: -.100000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
@@ -283,7 +282,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: 0, y: 0, z: -.411432087, w: .911440432}
-  m_LocalPosition: {x: -.353556156, y: -.398883104, z: .199999809}
+  m_LocalPosition: {x: -.353556156, y: -.398883104, z: .0299999993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -295,7 +294,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100020}
   m_LocalRotation: {x: 0, y: 0, z: -.118340209, w: .992973149}
-  m_LocalPosition: {x: -.0634586811, y: -.407947063, z: .5}
+  m_LocalPosition: {x: -.0634586811, y: -.407947063, z: .100000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400018}
@@ -307,7 +306,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .188300371, y: .464025736, z: -.100000001}
+  m_LocalPosition: {x: .188300371, y: .464025736, z: -.0500000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -362,34 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485b7c983757adc49a570f318ee4b273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemy: 1
-  staticMovement: {x: 0, y: 0, z: 0}
-  movement: {x: 0, y: 0, z: 0}
-  lineCharacter: 0
-  lineEnnemy: 0
-  boost: 0
-  scoreText: {fileID: 0}
-  scoreText3D: {fileID: 0}
-  score: 0
-  increaseScore: 1
-  multiplicatorText: {fileID: 0}
-  multiplicatorText3D: {fileID: 0}
-  drugLevelText: {fileID: 0}
-  drugLevelText3D: {fileID: 0}
   line: 3
-  animator: {fileID: 0}
-  timer: 5
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a486636eb38c0241be0f638a9564634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
