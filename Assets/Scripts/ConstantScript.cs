@@ -14,7 +14,7 @@ public class ConstantScript : MonoBehaviour
     public static float BOOST_LENGTH = 0.5f;
     public static float ENNEMY_SPEED = (TRACK_SPEED / 3.5f);
 
-    public const float RUNNER_PENALTY = 0f;//0.3f;
+    public const float RUNNER_PENALTY = 0.3f;
 // Position of the 5 rows
     public const float LINE_1 = -4.8f;
     public const float LINE_2 = -3.85f;
