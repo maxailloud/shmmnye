@@ -58,6 +58,8 @@ public class CharacterScript : MonoBehaviour
     private Transform audioCountDown;
     private Transform audioOverloadLvlUp;
 
+    private float pitchModifier = 1f;
+
 
 /// <summary>
 /// 3 - Line on which the character is
@@ -67,6 +69,7 @@ public class CharacterScript : MonoBehaviour
 	public Animator animator;
 
 	public float timer = 5.0f;
+    public float pitchTimer = 3f;
 
 // Use this for initialization
     void Start ()
@@ -285,9 +288,53 @@ public class CharacterScript : MonoBehaviour
             ConstantScript.GAME_SPEED = 1f;
             ConstantScript.updateValue();
             audioSpeedBack.audio.Stop();
-            audioBack.audio.pitch = 1f;
+            audioBack.audio.mute = false;
+            pitchModifier = 1f;
             speedDuration = 0;
         }
+
+        if (pitchTimer < 0) {
+            float limitsDown = 1f;
+            float limitsUp = 1f;
+            switch (overdoseBar.getLevel ()) {
+            case 0 :
+                limitsDown = 1f;
+                limitsUp = 1f;
+                break;
+            case 1 : 
+                limitsDown = 0.95f;
+                limitsUp = 1.05f;
+                break;
+            case 2 : 
+                limitsDown = 0.9f;
+                limitsUp = 1.1f;
+                break;
+            case 3 : 
+                limitsDown = 0.8f;
+                limitsUp = 1.2f;
+                break;
+            case 4 : 
+                limitsDown = 0.7f;
+                limitsUp = 1.3f;
+                break;
+            case 5 : 
+                limitsDown = 0.6f;
+                limitsUp = 1.4f;
+                break;
+            }
+            float value = Random.Range (limitsDown, limitsUp);
+            audioBack.audio.pitch = value * pitchModifier;
+            audioSpeedBack.audio.pitch = value * pitchModifier;
+            audioCroud.audio.pitch = value * pitchModifier;
+            audioSpeed.audio.pitch = value * pitchModifier;
+            audioLsd.audio.pitch = value * pitchModifier;
+            audioWater.audio.pitch = value * pitchModifier;
+            audioChoc.audio.pitch = value * pitchModifier;
+            audioCountDown.audio.pitch = value * pitchModifier;
+            audioOverloadLvlUp.audio.pitch = value * pitchModifier;
+            pitchTimer = 3f;
+        }
+        pitchTimer -= Time.deltaTime;
 
         float modif = 0;
         if (boost != 0) {
@@ -386,6 +433,7 @@ public class CharacterScript : MonoBehaviour
                             score += increaseScore * multiplicator;
                             ConstantScript.GAME_SPEED = 1f * ConstantScript.SPEED_CHANGER;
                             ConstantScript.updateValue();
+                            audioBack.audio.mute = true;
                             speedDuration = ConstantScript.SPEED_MAX_LENGTH;
                             break;
                         case "LSD":
@@ -396,7 +444,7 @@ public class CharacterScript : MonoBehaviour
                             score += increaseScore * multiplicator;
                             ConstantScript.GAME_SPEED = 1f / ConstantScript.SPEED_CHANGER;
                             ConstantScript.updateValue();
-                            audioBack.audio.pitch = 0.7f;
+                            pitchModifier = 0.7f;
                             speedDuration = ConstantScript.SPEED_MAX_LENGTH;
                             break;
                         case "Water":
