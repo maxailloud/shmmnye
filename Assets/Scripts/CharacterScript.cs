@@ -30,6 +30,9 @@ public class CharacterScript : MonoBehaviour
     public float increaseScore = 1;
 
     private OverdoseBar overdoseBar;
+
+    public SpriteRenderer overdoseBarSprite;
+
     public TextMesh multiplicatorText;
     public TextMesh multiplicatorText3D;
 
@@ -38,10 +41,21 @@ public class CharacterScript : MonoBehaviour
 
     private int multiplicator = 1;
 
-    private Transform audioLsd;
+/// <summary>
+///  variables to all audio effects
+/// </summary>
+    // background soundtrack
+    private Transform audioBack;
+    private Transform audioSpeedBack;
+    private Transform audioCroud;
+    // event soundtrack
     private Transform audioSpeed;
+    private Transform audioLsd;
     private Transform audioWater;
     private Transform audioChoc;
+    // other soundtrack
+    private Transform audioCountDown;
+    private Transform audioOverloadLvlUp;
 
 
 /// <summary>
@@ -62,21 +76,29 @@ public class CharacterScript : MonoBehaviour
 			animator = GetComponent<Animator> ();
 
             overdoseBar = new OverdoseBar ();
+
             var childList = GetComponentsInChildren<Transform>();
             int count = childList.Length;
             while (count > 0)
             {
                 count--;
-                Debug.Log("name = " + childList[count].name);
-                if (childList[count].name == "Audio3 - Boire") audioWater = childList[count];
-                if (childList[count].name == "Audio2 - LSD - Cachets") audioLsd = childList[count];
-                if (childList[count].name == "Audio1 - Speed - Injection") audioSpeed = childList[count];
-                if (childList[count].name == "Audio4 - Choc") audioChoc = childList[count];
+                if (childList[count].name == "Audio0.1 - Soundtrack")               audioBack = childList[count];
+                else if (childList[count].name == "Audio0.2 - Speed - Soundtrack")  audioSpeedBack = childList[count];
+                else if (childList[count].name == "Audio0.3 - Croud")               audioCroud = childList[count];
 
+                else if (childList[count].name == "Audio1.1 - Speed")               audioSpeed = childList[count];
+                else if (childList[count].name == "Audio1.2 - LSD")                 audioLsd = childList[count];
+                else if (childList[count].name == "Audio1.3 - Water")               audioWater = childList[count];
+                else if (childList[count].name == "Audio1.4 - Hit")                 audioChoc = childList[count];
+
+                else if (childList[count].name == "Audio2.0 - Countdown")           audioCountDown = childList[count];
+                else if (childList[count].name == "Audio2.1 - Overdose level up")   audioOverloadLvlUp = childList[count];
             }
-
+            audioCountDown.audio.Play();
+            audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 4.3f);
+            audioCroud.audio.Play();
+//            audioBack.audio.pitch = 0.5f;
         }
-
     }
         
     public void setLine (int newLine)
@@ -117,7 +139,12 @@ public class CharacterScript : MonoBehaviour
 
     void addDrugLevel(int drugLevel)
     {
-        multiplicator += overdoseBar.addDrugLevel (drugLevel);
+        int value = overdoseBar.addDrugLevel (drugLevel);
+        if (value > 0)
+        {
+            audioOverloadLvlUp.audio.Play();
+            multiplicator += value; 
+        }
         updateDrugLevel ();
         updateMultiplicator ();
 
@@ -290,8 +317,9 @@ public class CharacterScript : MonoBehaviour
     
     void updateDrugLevel ()
     {
-        drugLevelText.text   = "" + overdoseBar.drugLevel;
-        drugLevelText3D.text = "" + overdoseBar.drugLevel;
+        overdoseBarSprite.transform.localScale = new Vector3(1, overdoseBar.drugLevel / 100f, 1);
+        drugLevelText.text   = "" + overdoseBar.drugLevel + "%";
+        drugLevelText3D.text = "" + overdoseBar.drugLevel + "%";
     }
 
 // Update is called once per frame
@@ -340,7 +368,6 @@ public class CharacterScript : MonoBehaviour
                 stop = false;
         }
         if (stop) {
-            Debug.Log ("DEATH !!!");
             Application.LoadLevel ("death");
         }
     }
@@ -398,7 +425,6 @@ public class CharacterScript : MonoBehaviour
             DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
             if (drug != null) {
                 if (drug.line == line) {
-                    Debug.Log ("play sound");
                     switch (drug.type) {
                         case "Speed":
 							animator.SetTrigger("Pic");
@@ -430,7 +456,6 @@ public class CharacterScript : MonoBehaviour
             if (enemy != null) {
                 if (enemy.line == line) {
                     //Supprimer les bonus des drogues
-                    print ("collision avec un ennemi");
                     audioChoc.audio.Play();
                     boost = -ConstantScript.BOOST_LENGTH / 2;
 					animator.SetTrigger("Fetus");

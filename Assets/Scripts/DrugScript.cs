@@ -18,8 +18,7 @@ public class DrugScript : MonoBehaviour
 // Use this for initialization
     void Start ()
     {
-                
-        Destroy (gameObject, 10); // 20sec
+        Destroy (gameObject, 10);
     }
 
     public void setLine (int newLine)
