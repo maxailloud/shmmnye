@@ -1985,7 +1985,6 @@ MonoBehaviour:
   c50: {fileID: 232710387}
   c70: {fileID: 1659328159}
   c100: {fileID: 644430568}
-  isEnemy: 0
   staticMovement: {x: 0, y: 0, z: 0}
   movement: {x: 0, y: 0, z: 0}
   lineCharacter: 0
