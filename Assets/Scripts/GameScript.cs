@@ -44,6 +44,10 @@ public class GameScript : MonoBehaviour
 // Update is called once per frame
     void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.LoadLevel ("menu");
+        }
+
         if (timer <= 0.0f) {
             for (int i = 1; i <= obstaclesNumber; i++) {
                 obstacleSuccesRate = Random.Range (1, 100);
