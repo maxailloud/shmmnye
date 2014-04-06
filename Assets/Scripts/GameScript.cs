@@ -118,9 +118,12 @@ public class GameScript : MonoBehaviour
 		}
 
 		chanceOfLSD = Random.Range (1.0f, 50.0f - chanceOfWater);
-		chanceOfSpeed = Random.Range (1.0f, 50.0f - chanceOfLSD + chanceOfWater);
-		chanceOfEnnemies = Random.Range (1.0f, 100.0f - chanceOfSpeed + chanceOfLSD + chanceOfWater);
-		//chanceOfEnnemies
+		
+		/*float tmpSpeed*/chanceOfSpeed = Random.Range (1.0f, 100.0f - chanceOfLSD + chanceOfWater);
+		//chanceOfSpeed
+		
+		float tmpEnnemy = Random.Range (1.0f, 100.0f - chanceOfSpeed + chanceOfLSD + chanceOfWater);
+		chanceOfEnnemies = tmpEnnemy + (100 - tmpEnnemy + chanceOfSpeed + chanceOfLSD + chanceOfWater);
 
     }
 
