@@ -4,8 +4,8 @@ using System.Collections;
 public class GameScript : MonoBehaviour
 {
 //Set the boundaries for the random timer value until the next obstacle appear
-    public int lowerBoundary = 1;
-    public int upperBoundary = 3;
+    public float lowerBoundary = 1.0f;
+    public float upperBoundary = 3.0f;
 
 //Objects the script creates
     public Transform lsdPrefab;
@@ -98,9 +98,11 @@ public class GameScript : MonoBehaviour
     {
         ellapsedSeconds++;
         changeChancesAndFrequencies++;
-        if (changeChancesAndFrequencies >= 10) {
+		//We change the difficulty level every minutes
+        if (changeChancesAndFrequencies >= 5) 
+		{
             changeChancesAndFrequencies = 0;
-            coolDown = Random.Range (0.5f, 4.0f);
+            coolDown = Random.Range (lowerBoundary, upperBoundary);
             shuffleChances ();
         }
     }
@@ -108,13 +110,17 @@ public class GameScript : MonoBehaviour
     void shuffleChances ()
     {
         chanceOfWater -= 5.0f;
-        if (chanceOfWater < 10.0f)
-            chanceOfWater = 10.0f;
+        if (chanceOfWater < 10.0f) 
+		{
+			chanceOfWater = 10.0f;
+			lowerBoundary = 0.3f;
+			upperBoundary = 1.0f;
+		}
 
-        chanceOfEnnemies = Random.Range (1.0f, 100.0f - chanceOfWater);
-        chanceOfLSD = Random.Range (1.0f, 100.0f - chanceOfEnnemies + chanceOfWater);
-        chanceOfSpeed = Random.Range (1.0f, 100.0f - chanceOfEnnemies + chanceOfLSD + chanceOfWater);
-        //chanceOfWater = Random.Range(1.0f, chanceOfEnnemies + chanceOfLSD +chanceOfSpeed);
+		chanceOfLSD = Random.Range (1.0f, 50.0f - chanceOfWater);
+		chanceOfSpeed = Random.Range (1.0f, 50.0f - chanceOfLSD + chanceOfWater);
+		chanceOfEnnemies = Random.Range (1.0f, 100.0f - chanceOfSpeed + chanceOfLSD + chanceOfWater);
+		//chanceOfEnnemies
 
     }
 
