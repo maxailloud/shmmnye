@@ -34,8 +34,8 @@ public class GameScript : MonoBehaviour
 // Use this for initialization
     void Start ()
     {
-        timer = 0.0f;
-        coolDown = 3.0f;
+        timer = 2.5f;
+        coolDown = 1.5f;
         nextObstacle = 1;
 
         InvokeRepeating ("changeObstacleFrequency", 1.0f, 1.0f);
@@ -72,17 +72,14 @@ public class GameScript : MonoBehaviour
                         case 1:
                             var ennemyTransform = Instantiate (ennemyPrefab) as Transform;
                             ennemyTransform.GetComponent<CharacterScript> ().setLine (i);
-                            print ("ennemy appears");
                             break;
                         case 2: 
                             var drug1Transform = Instantiate (speedPrefab) as Transform;
                             drug1Transform.GetComponent<DrugScript> ().setLine (i);
-                            print ("speed appears");
                             break;
                         case 3:
                             var drugTransform = Instantiate (lsdPrefab) as Transform;
                             drugTransform.GetComponent<DrugScript> ().setLine (i);
-                            print ("LSD appears");
                             break;
                         case 4:
                             var drug2Transform = Instantiate (waterPrefab) as Transform;
@@ -104,8 +101,6 @@ public class GameScript : MonoBehaviour
         if (changeChancesAndFrequencies >= 10) {
             changeChancesAndFrequencies = 0;
             coolDown = Random.Range (0.5f, 4.0f);
-            print ("nouveau cooldown");
-            print (coolDown);
             shuffleChances ();
         }
     }
@@ -121,9 +116,6 @@ public class GameScript : MonoBehaviour
         chanceOfSpeed = Random.Range (1.0f, 100.0f - chanceOfEnnemies + chanceOfLSD + chanceOfWater);
         //chanceOfWater = Random.Range(1.0f, chanceOfEnnemies + chanceOfLSD +chanceOfSpeed);
 
-
-        print ("chances d'apparition d'obstacles modifiees !");     
-        print ("eau : " + chanceOfWater);
     }
 
 }

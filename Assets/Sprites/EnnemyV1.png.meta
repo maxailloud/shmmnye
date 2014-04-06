@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: 321bd49e7d8285940b2c12fa69930e1f
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: EnnemyV1_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 444
+        width: 61
+        height: 66
+      alignment: 9
+      pivot: {x: .332654089, y: .0961442441}
+    - name: EnnemyV1_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 441
+        width: 75
+        height: 69
+      alignment: 9
+      pivot: {x: .159730017, y: .861639917}
+    - name: EnnemyV1_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 449
+        width: 67
+        height: 61
+      alignment: 9
+      pivot: {x: .195280612, y: .751019061}
+    - name: EnnemyV1_3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 464
+        width: 38
+        height: 46
+      alignment: 9
+      pivot: {x: .216441512, y: .438357145}
+    - name: EnnemyV1_4
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 433
+        width: 78
+        height: 77
+      alignment: 9
+      pivot: {x: .827182889, y: .831431985}
+    - name: EnnemyV1_5
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 412
+        width: 57
+        height: 98
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: EnnemyV1_6
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 450
+        width: 119
+        height: 60
+      alignment: 9
+      pivot: {x: .550296545, y: .553714514}
+    - name: EnnemyV1_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 345
+        width: 59
+        height: 65
+      alignment: 9
+      pivot: {x: .740303695, y: .814095855}
+    - name: EnnemyV1_8
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 363
+        width: 32
+        height: 47
+      alignment: 9
+      pivot: {x: .712668896, y: .741326511}
+    - name: EnnemyV1_9
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 345
+        width: 75
+        height: 65
+      alignment: 9
+      pivot: {x: .11436066, y: .857720017}
+    - name: EnnemyV1_10
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 95
+        width: 85
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 
