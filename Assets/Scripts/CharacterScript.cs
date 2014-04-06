@@ -152,19 +152,24 @@ public class CharacterScript : MonoBehaviour
 		{
             case 0: break;
 			case 1:
-				ActivateDeactivate_c10(true);
+            c0.camera.active = false;
+            c10.camera.active = true;
 				break;
 			case 2:
-				ActivateDeactivate_c30(true);
+            c10.camera.active = false;
+            c30.camera.active = true;
 				break;
 			case 3 :
-				ActivateDeactivate_c50(true);
+            c30.camera.active = false;
+            c50.camera.active = true;
 				break;
 			case 4 :
-				ActivateDeactivate_c70(true);
+            c50.camera.active = false;
+            c70.camera.active = true;
 				break;
 			case 5:
-				ActivateDeactivate_c100(true);
+            c70.camera.active = false;
+            c100.camera.active = true;
 				break;
 			default :
                 print ("Error : reduceDruglvl !!");
@@ -180,19 +185,24 @@ public class CharacterScript : MonoBehaviour
 		switch (overdoseBar.getLevel()) 
 		{
 			case 0:
-				ActivateDeactivate_c10(false);
+            c0.camera.active = true;
+            c10.camera.active = false;
 				break;
 			case 1:
-				ActivateDeactivate_c30(false);
+            c10.camera.active = true;
+            c30.camera.active = false;
 				break;
 			case 2 :
-				ActivateDeactivate_c50(false);
+            c30.camera.active = true;
+            c50.camera.active = false;
 				break;
 			case 3:
-				ActivateDeactivate_c70(false);
+            c50.camera.active = true;
+            c70.camera.active = false;
 				break;
 			case 4 :
-				ActivateDeactivate_c100(false);
+            c70.camera.active = true;
+            c100.camera.active = false;
 				break;
             case 5 : break;
 			default :
@@ -201,115 +211,36 @@ public class CharacterScript : MonoBehaviour
 		}
     }
 
-	void ActivateDeactivate_c10(bool activation)
-	{
-		if (activation) 
-		{
-			c0.camera.active = false;
-			c10.camera.active = true;
-			c30.camera.active = false;
-			c50.camera.active = false;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		} 
-		else 
-		{
-			c0.camera.active = true;
-			c10.camera.active = false;
-			c30.camera.active = false;
-			c50.camera.active = false;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		}
-	}
-
-	void ActivateDeactivate_c30(bool activation)
-	{
-		if (activation) 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = true;
-			c50.camera.active = false;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		} 
-		else 
-		{
-			c0.camera.active = false;
-			c10.camera.active = true;
-			c30.camera.active = false;
-			c50.camera.active = false;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		}
-	}
-
-	void ActivateDeactivate_c50(bool activation)
-	{
-		if (activation) 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = false;
-			c50.camera.active = true;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		} 
-		else 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = true;
-			c50.camera.active = false;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		}
-	}
-
-	void ActivateDeactivate_c70(bool activation)
-	{
-		if (activation) 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = false;
-			c50.camera.active = false;
-			c70.camera.active = true;
-			c100.camera.active = false;
-		} 
-		else 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = false;
-			c50.camera.active = true;
-			c70.camera.active = false;
-			c100.camera.active = false;
-		}
-	}
-
-	void ActivateDeactivate_c100(bool activation)
-	{
-		if (activation) 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = false;
-			c50.camera.active = false;
-			c70.camera.active = false;
-			c100.camera.active = true;
-		} 
-		else 
-		{
-			c0.camera.active = false;
-			c10.camera.active = false;
-			c30.camera.active = false;
-			c50.camera.active = false;
-			c70.camera.active = true;
-			c100.camera.active = false;
-		}
-	}
+//    void activateFX(bool upgrade) {
+//        switch (overdoseBar.getLevel()) 
+//        {
+//        case 0:
+//            c0.camera.active  = !upgrade;
+//            c10.camera.active = upgrade;
+//            break;
+//        case 1:
+//            c10.camera.active = !upgrade;
+//            c30.camera.active = upgrade;
+//            break;
+//        case 2 :
+//            c30.camera.active = !upgrade;
+//            c50.camera.active = upgrade;
+//            break;
+//        case 3:
+//            c50.camera.active = !upgrade;
+//            c70.camera.active = upgrade;
+//            break;
+//        case 4 :
+//            c70.camera.active  = !upgrade;
+//            c100.camera.active = upgrade;
+//            break;
+//        case 5 : break;
+//        default :
+//            print ("Error : reduceDruglvl !!");
+//            break;
+//        }
+//
+//    }
 
     void updateMultiplicator ()
     {
@@ -341,10 +272,10 @@ public class CharacterScript : MonoBehaviour
 
         if (Input.GetKeyUp (KeyCode.UpArrow)) {
             shiftY = changeLine (1);
-            shiftZ = -0.1f;
+            shiftZ = -1f;
         } else if (Input.GetKeyUp (KeyCode.DownArrow)) {
             shiftY = changeLine (-1);
-            shiftZ = 0.1f;
+            shiftZ = 1f;
         }
 
         float modif = 0;
