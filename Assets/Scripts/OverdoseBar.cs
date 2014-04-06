@@ -56,7 +56,9 @@ public class OverdoseBar
 
     public void reduceDrugLevel(int reducedDrugLevel)
     {
-        drugLevel -= reducedDrugLevel;
+        if (0 <= drugLevel - reducedDrugLevel) {
+            drugLevel -= reducedDrugLevel;
+        }
     }
 
     public int calculateMultiplicator()
