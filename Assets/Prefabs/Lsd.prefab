@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: LSD
   line: 0
-  drugPoint: 5
+  drugPoint: 10
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
