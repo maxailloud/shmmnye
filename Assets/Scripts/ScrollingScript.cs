@@ -20,6 +20,7 @@ public class ScrollingScript : MonoBehaviour
     public TextMesh distanceText;
     public TextMesh distanceText3D;
     private float distance = 0;
+    private float distanceTimer = 4;
 
 // Get all the children
     void Start ()
@@ -56,7 +57,13 @@ public class ScrollingScript : MonoBehaviour
             0,
             0);
 
-        addDistance (ConstantScript.TRACK_SPEED);
+        if (0 < distanceTimer) {
+            distanceTimer -= Time.deltaTime;
+        }           
+        
+        if (0 > distanceTimer) {
+            addDistance (ConstantScript.TRACK_SPEED);
+        }
 
         movement *= Time.deltaTime;
         transform.Translate (movement);
