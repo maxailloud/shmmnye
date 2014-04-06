@@ -272,10 +272,10 @@ public class CharacterScript : MonoBehaviour
 
         if (Input.GetKeyUp (KeyCode.UpArrow)) {
             shiftY = changeLine (1);
-            shiftZ = -0.1f;
+            shiftZ = -1f;
         } else if (Input.GetKeyUp (KeyCode.DownArrow)) {
             shiftY = changeLine (-1);
-            shiftZ = 0.1f;
+            shiftZ = 1f;
         }
 
         float modif = 0;

@@ -28,19 +28,19 @@ public class DrugScript : MonoBehaviour
         switch (line = newLine) {
         //On fait démarrer la drogue sur une ligne particulière
             case 1:
-                transform.Translate (13f, ConstantScript.LINE_1, 0.0f);
+                transform.Translate (13f, ConstantScript.LINE_1, 0f);
                 break;
             case 2:
-                transform.Translate (13f, ConstantScript.LINE_2, 0.1f);
+                transform.Translate (13f, ConstantScript.LINE_2, 1f);
                 break;
             case 3:
-                transform.Translate (13f, ConstantScript.LINE_3, 0.2f);
+                transform.Translate (13f, ConstantScript.LINE_3, 2f);
                 break;
             case 4:
-                transform.Translate (13f, ConstantScript.LINE_4, 0.3f);
+                transform.Translate (13f, ConstantScript.LINE_4, 3f);
                 break;
             case 5:
-                transform.Translate (13f, ConstantScript.LINE_5, 0.4f);
+                transform.Translate (13f, ConstantScript.LINE_5, 4f);
                 break;
         }   
     }
