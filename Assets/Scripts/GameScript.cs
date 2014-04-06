@@ -71,7 +71,7 @@ public class GameScript : MonoBehaviour
                     //drug
                         case 1:
                             var ennemyTransform = Instantiate (ennemyPrefab) as Transform;
-                            ennemyTransform.GetComponent<CharacterScript> ().setLine (i);
+                            ennemyTransform.GetComponent<EnemyScript> ().setLine (i);
                             break;
                         case 2: 
                             var drug1Transform = Instantiate (speedPrefab) as Transform;

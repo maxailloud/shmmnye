@@ -171,11 +171,14 @@ public class CharacterScript : MonoBehaviour
         }
 
         float shiftY = 0;
+        float shiftZ = 0;
 
         if (Input.GetKeyUp (KeyCode.UpArrow)) {
             shiftY = changeLine (1);
+            shiftZ = -0.1f;
         } else if (Input.GetKeyUp (KeyCode.DownArrow)) {
             shiftY = changeLine (-1);
+            shiftZ = 0.1f;
         }
 
         float modif = 0;
@@ -191,7 +194,7 @@ public class CharacterScript : MonoBehaviour
         Vector3 mov2 = new Vector3 (
             (-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
             shiftY,
-            0);
+            shiftZ);
 
         transform.Translate (mov2);
 
@@ -288,7 +291,7 @@ public class CharacterScript : MonoBehaviour
                 }
                 return;
             }
-            CharacterScript enemy = otherCollider.gameObject.GetComponent<CharacterScript> ();
+            EnemyScript enemy = otherCollider.gameObject.GetComponent<EnemyScript> ();
             if (enemy != null) {
                 if (enemy.line == line) {
                     //Supprimer les bonus des drogues
