@@ -59,8 +59,11 @@ public class ScrollingScript : MonoBehaviour
 
         if (0 < distanceTimer) {
             distanceTimer -= Time.deltaTime;
+            if (0 > distanceTimer) {
+                ConstantScript.RUNNER_SPEED = ConstantScript.RUNNER_PENALTY;
+            }
         }           
-        
+
         if (0 > distanceTimer) {
             addDistance (ConstantScript.TRACK_SPEED);
         }

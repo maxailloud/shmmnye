@@ -22,7 +22,8 @@ public class CharacterScript : MonoBehaviour
     public Vector3 movement;
     public int lineCharacter;
     public int lineEnnemy;
-    public int boost = 0;
+    public float boost = 0f;
+    public float speedDuration = 0f;
 
     public TextMesh scoreText;
     public TextMesh scoreText3D;
@@ -278,13 +279,25 @@ public class CharacterScript : MonoBehaviour
             shiftZ = 1f;
         }
 
+        if (speedDuration > 0) {
+            speedDuration -= Time.deltaTime;
+        } else {
+            ConstantScript.GAME_SPEED = 1f;
+            ConstantScript.updateValue();
+            speedDuration = 0;
+        }
+
         float modif = 0;
-        if (boost > 0) {
-            modif = ConstantScript.BOOST_SPEED;
-            boost--;
-        } else if (boost < 0) {
-            modif = -ConstantScript.BOOST_SPEED;
-            boost++;
+        if (boost != 0) {
+            if (boost < Time.deltaTime && boost > -Time.deltaTime) {
+                boost = 0;
+            } else if (boost > 0) {
+                modif = ConstantScript.BOOST_SPEED;
+                boost -= Time.deltaTime;
+            } else if (boost < 0) {
+                modif = -ConstantScript.BOOST_SPEED;
+                boost += Time.deltaTime;
+            }
         }
 
         // Update 1 - Move the character
@@ -368,6 +381,9 @@ public class CharacterScript : MonoBehaviour
                             boost = ConstantScript.BOOST_LENGTH;
                             addDrugLevel(drug.drugPoint);
                             score += increaseScore * multiplicator;
+                            ConstantScript.GAME_SPEED = 1f * ConstantScript.SPEED_CHANGER;
+                            ConstantScript.updateValue();
+                            speedDuration = ConstantScript.SPEED_MAX_LENGTH;
                             break;
                         case "LSD":
 							animator.SetTrigger("Drug");
@@ -375,6 +391,9 @@ public class CharacterScript : MonoBehaviour
                             boost = -ConstantScript.BOOST_LENGTH / 3;
                             addDrugLevel(drug.drugPoint);
                             score += increaseScore * multiplicator;
+                            ConstantScript.GAME_SPEED = 1f / ConstantScript.SPEED_CHANGER;
+                            ConstantScript.updateValue();
+                            speedDuration = ConstantScript.SPEED_MAX_LENGTH;
                             break;
                         case "Water":
                             audioWater.audio.Play();
