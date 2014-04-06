@@ -94,8 +94,8 @@ public class CharacterScript : MonoBehaviour
                 else if (childList[count].name == "Audio2.0 - Countdown")           audioCountDown = childList[count];
                 else if (childList[count].name == "Audio2.1 - Overdose level up")   audioOverloadLvlUp = childList[count];
             }
-            audioCountDown.audio.Play();
-            audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 4.3f);
+            audioCountDown.audio.PlayDelayed(1f);
+            audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 3.3f);
             audioCroud.audio.Play();
 //            audioBack.audio.pitch = 0.5f;
         }
