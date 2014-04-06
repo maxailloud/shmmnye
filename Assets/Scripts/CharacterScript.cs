@@ -3,7 +3,13 @@ using System.Collections;
 
 public class CharacterScript : MonoBehaviour
 {
-
+	public GameObject fx1;
+	public Camera c0;
+	public Camera c10;
+	public Camera c30;
+	public Camera c50;
+	public Camera c70;
+	public Camera c100;
 /// <summary>
 /// 1 - The type of the character
 /// </summary>
@@ -49,7 +55,7 @@ public class CharacterScript : MonoBehaviour
 
 // Use this for initialization
     void Start ()
-    {
+    {	
         if (!isEnemy) {
             InvokeRepeating ("addScore", 1.0f, 1.0f);
 
@@ -114,13 +120,167 @@ public class CharacterScript : MonoBehaviour
         multiplicator += overdoseBar.addDrugLevel (drugLevel);
         updateDrugLevel ();
         updateMultiplicator ();
+
+		switch (overdoseBar.getLevel()) 
+		{
+			case 1:
+				ActivateDeactivate_c10(true);
+				break;
+			case 2:
+				ActivateDeactivate_c30(true);
+				break;
+			case 3 :
+				ActivateDeactivate_c50(true);
+				break;
+			case 4 :
+				ActivateDeactivate_c70(true);
+				break;
+			case 5:
+				ActivateDeactivate_c100(true);
+				break;
+			default :
+				print ("No visual effets activations done");
+				break;
+		}
     }
     
     void reduceDrugLevel(int drugLevel)
     {
         overdoseBar.reduceDrugLevel (drugLevel);
         updateDrugLevel ();
+
+		switch (overdoseBar.getLevel()) 
+		{
+			case 0:
+				ActivateDeactivate_c10(false);
+				break;
+			case 1:
+				ActivateDeactivate_c30(false);
+				break;
+			case 2 :
+				ActivateDeactivate_c50(false);
+				break;
+			case 3:
+				ActivateDeactivate_c70(false);
+				break;
+			case 4 :
+				ActivateDeactivate_c100(false);
+				break;
+			default :
+				print ("No visual effets deactivations done");
+				break;
+		}
     }
+
+	void ActivateDeactivate_c10(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = true;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = true;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c30(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = true;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = true;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c50(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = true;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = true;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c70(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = true;
+			c100.camera.active = false;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = true;
+			c70.camera.active = false;
+			c100.camera.active = false;
+		}
+	}
+
+	void ActivateDeactivate_c100(bool activation)
+	{
+		if (activation) 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = false;
+			c100.camera.active = true;
+		} 
+		else 
+		{
+			c0.camera.active = false;
+			c10.camera.active = false;
+			c30.camera.active = false;
+			c50.camera.active = false;
+			c70.camera.active = true;
+			c100.camera.active = false;
+		}
+	}
 
     void updateMultiplicator ()
     {
@@ -275,6 +435,9 @@ public class CharacterScript : MonoBehaviour
                     boost = -ConstantScript.BOOST_LENGTH / 2;
 					animator.SetTrigger("Fetus");
                     multiplicator = 1;
+
+					//ActivateDeactivate_c10(false);
+
                     updateMultiplicator();
                     Destroy (enemy.gameObject);
                 }

@@ -1,18 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OverdoseBar {
-    
+public class OverdoseBar 
+{
     public int drugLevel = 0;
 
     private int[] levels;
+	private string[] animationsName;
+	public int currentLevel = 0;
 
 	// Use this for initialization
     public OverdoseBar ()
     {
         levels = new int[] {10, 30, 50, 70, 100};
 	}
-	
+
+	public int getLevel () {
+		int ind = levels.Length;
+
+		while(ind>0)
+		{
+			ind--;
+			if (drugLevel >= levels[ind])
+				return ind+1;
+		}
+		return 0;
+	}
+
 	// Add drug level and return new multiplicator level (or not)
 	public int addDrugLevel (int additionalDrugLevel)
     {
@@ -35,6 +49,8 @@ public class OverdoseBar {
             levelIndex++;
         }
 
+		//currentLevel = levels [levelIndex - 1];
+
         return additionalMultiplicator;
 	}
 
@@ -51,6 +67,7 @@ public class OverdoseBar {
         {
             if (i <= drugLevel) {
                 multiplicator++;
+
             }
         }
 
