@@ -1182,16 +1182,16 @@ MonoBehaviour:
   c50: {fileID: 0}
   c70: {fileID: 0}
   c100: {fileID: 0}
-  isEnemy: 0
   staticMovement: {x: 0, y: 0, z: 0}
   movement: {x: 0, y: 0, z: 0}
   lineCharacter: 0
   lineEnnemy: 0
   boost: 0
+  speedDuration: 0
   scoreText: {fileID: 0}
   scoreText3D: {fileID: 0}
   score: 0
-  increaseScore: 1
+  increaseScore: 10
   overdoseBarSprite: {fileID: 0}
   multiplicatorText: {fileID: 0}
   multiplicatorText3D: {fileID: 0}
