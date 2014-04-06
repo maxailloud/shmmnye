@@ -24,6 +24,9 @@ public class CharacterScript : MonoBehaviour
     public float increaseScore = 1;
 
     private OverdoseBar overdoseBar;
+
+    public SpriteRenderer overdoseBarSprite;
+
     public TextMesh multiplicatorText;
     public TextMesh multiplicatorText3D;
 
@@ -67,6 +70,7 @@ public class CharacterScript : MonoBehaviour
 			animator = GetComponent<Animator> ();
 
             overdoseBar = new OverdoseBar ();
+
             var childList = GetComponentsInChildren<Transform>();
             int count = childList.Length;
             while (count > 0)
@@ -89,7 +93,6 @@ public class CharacterScript : MonoBehaviour
             audioCroud.audio.Play();
 //            audioBack.audio.pitch = 0.5f;
         }
-
     }
         
     public void setLine (int newLine)
@@ -154,8 +157,9 @@ public class CharacterScript : MonoBehaviour
     
     void updateDrugLevel ()
     {
-        drugLevelText.text   = "" + overdoseBar.drugLevel;
-        drugLevelText3D.text = "" + overdoseBar.drugLevel;
+        overdoseBarSprite.transform.localScale = new Vector3(1, overdoseBar.drugLevel / 100f, 1);
+        drugLevelText.text   = "" + overdoseBar.drugLevel + "%";
+        drugLevelText3D.text = "" + overdoseBar.drugLevel + "%";
     }
 
 // Update is called once per frame
