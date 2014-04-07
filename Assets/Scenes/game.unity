@@ -1990,18 +1990,20 @@ MonoBehaviour:
   lineCharacter: 0
   lineEnnemy: 0
   boost: 0
+  speedDuration: 0
   scoreText: {fileID: 1634433043}
   scoreText3D: {fileID: 102025869}
-  score: 0
-  increaseScore: 1
+  increaseScore: 10
   overdoseBarSprite: {fileID: 549729832}
   multiplicatorText: {fileID: 30917702}
   multiplicatorText3D: {fileID: 2125300618}
   drugLevelText: {fileID: 105779064}
   drugLevelText3D: {fileID: 1289455094}
+  multiplicator: 1
   line: 3
   animator: {fileID: 0}
   timer: 5
+  pitchTimer: 3
 --- !u!61 &697457291
 BoxCollider2D:
   m_ObjectHideFlags: 0

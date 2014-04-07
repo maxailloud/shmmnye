@@ -19,12 +19,13 @@ public class ScrollingScript : MonoBehaviour
     
     public TextMesh distanceText;
     public TextMesh distanceText3D;
-    private float distance = 0;
+    static public float distance = 0;
     private float distanceTimer = 4;
 
 // Get all the children
     void Start ()
     {
+        distance = 0;
         // For infinite background only
         if (isLooping) {
             // Get all the children of the layer with a renderer

@@ -27,7 +27,7 @@ public class CharacterScript : MonoBehaviour
 
     public TextMesh scoreText;
     public TextMesh scoreText3D;
-    public float score = 0;
+    static public float score = 0;
     public float increaseScore = 1;
 
     private OverdoseBar overdoseBar;
@@ -74,6 +74,7 @@ public class CharacterScript : MonoBehaviour
 // Use this for initialization
     void Start ()
     {	
+        score = 0;
 //        if (!isEnemy) {
             InvokeRepeating ("addScore", 4.0f, 1.0f);
 
@@ -254,9 +255,9 @@ public class CharacterScript : MonoBehaviour
     
     void updateDrugLevel ()
     {
-        overdoseBarSprite.transform.localScale = new Vector3(1, overdoseBar.drugLevel / 100f, 1);
-        drugLevelText.text   = "" + overdoseBar.drugLevel + "%";
-        drugLevelText3D.text = "" + overdoseBar.drugLevel + "%";
+        overdoseBarSprite.transform.localScale = new Vector3(1, OverdoseBar.drugLevel / 100f, 1);
+        drugLevelText.text   = "" + OverdoseBar.drugLevel + "%";
+        drugLevelText3D.text = "" + OverdoseBar.drugLevel + "%";
     }
 
 // Update is called once per frame

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OverdoseBar 
 {
-    public int drugLevel = 0;
+    static public int drugLevel = 0;
 
     private int[] levels;
 	private string[] animationsName;
@@ -12,6 +12,7 @@ public class OverdoseBar
 	// Use this for initialization
     public OverdoseBar ()
     {
+        drugLevel = 0;
         levels = new int[] {10, 30, 50, 70, 100};
 	}
 
