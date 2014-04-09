@@ -23,30 +23,11 @@ public class DrugScript : MonoBehaviour
 
     public void setLine (int newLine)
     {
-        // On tire une ligne entre 1 et 5 (Si les paramètres sont des entiers, range retourne des entiers).
-        //line = Random.Range (1, 6);
-        switch (line = newLine) {
-        //On fait démarrer la drogue sur une ligne particulière
-            case 1:
-                transform.Translate (13f, ConstantScript.LINE_1, 0f);
-                break;
-            case 2:
-                transform.Translate (13f, ConstantScript.LINE_2, 1f);
-                break;
-            case 3:
-                transform.Translate (13f, ConstantScript.LINE_3, 2f);
-                break;
-            case 4:
-                transform.Translate (13f, ConstantScript.LINE_4, 3f);
-                break;
-            case 5:
-                transform.Translate (13f, ConstantScript.LINE_5, 4f);
-                break;
-        }   
+        line = newLine;
+        transform.Translate (13f, ConstantScript.LINE[line-1], line);
     }
 
 // Update is called once per frame
-
     void Update ()
     {
         // Movement

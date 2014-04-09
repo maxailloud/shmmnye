@@ -12,35 +12,14 @@ public class EnemyScript : MonoBehaviour
         
     public void setLine (int newLine)
     {
-        switch (line = newLine) {
-            case 1:
-                transform.Translate (13f, ConstantScript.LINE_1, 0f);
-                break;
-            case 2:
-                transform.Translate (13f, ConstantScript.LINE_2, 1f);
-                break;
-            case 3:
-                transform.Translate (13f, ConstantScript.LINE_3, 2f);
-                break;
-            case 4:
-                transform.Translate (13f, ConstantScript.LINE_4, 3f);
-                break;
-            case 5:
-                transform.Translate (13f, ConstantScript.LINE_5, 4f);
-                break;
-            default:
-                Debug.Log ("WARNING !!! (in characterScript - start() )");
-                break;
-        }
+        line = newLine;
+        transform.Translate (13f, ConstantScript.LINE[line-1], line);
     }
 
 // Update is called once per frame
     void Update ()
     {
-        Vector3 mov = new Vector3 (
-                -ConstantScript.ENNEMY_SPEED * Time.deltaTime,
-                0,
-                0);
+        Vector3 mov = new Vector3 ( -ConstantScript.ENNEMY_SPEED * Time.deltaTime, 0f, 0f);
         transform.Translate (mov);
     }
 

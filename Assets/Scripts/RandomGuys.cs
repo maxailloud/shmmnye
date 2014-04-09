@@ -7,12 +7,11 @@ public class RandomGuys : MonoBehaviour {
 	public Sprite V1;
 	public Sprite V2;
 	public Sprite V3;
-	private SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () 
 	{
-		spriteRenderer = Body.GetComponent<SpriteRenderer> ();
+        SpriteRenderer spriteRenderer = Body.GetComponent<SpriteRenderer> ();
 		int Count = Random.Range(1, 4);
 
 		switch (Count) 

@@ -15,7 +15,12 @@ public class DeathSceneScript : MonoBehaviour {
 	void Start () {
         scoreText.text   = "Score: " + CharacterScript.score;
         scoreText3D.text = "Score: " + CharacterScript.score;
-        
+
+//        scoreText3D.text = "Score: " + CharacterScript.nbLsd;
+//        scoreText3D.text = "Score: " + CharacterScript.nbSpeed;
+//        scoreText3D.text = "Score: " + CharacterScript.nbWater;
+//        scoreText3D.text = "Score: " + CharacterScript.nbEnemyHit;
+
         distanceText.text   = "Distance: " + ScrollingScript.distance + "m";
         distanceText3D.text = "Distance: " + ScrollingScript.distance + "m";
         

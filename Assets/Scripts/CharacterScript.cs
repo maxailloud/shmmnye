@@ -3,32 +3,22 @@ using System.Collections;
 
 public class CharacterScript : MonoBehaviour
 {
-	public GameObject fx1;
-	public Camera c0;
-	public Camera c10;
-	public Camera c30;
-	public Camera c50;
-	public Camera c70;
-	public Camera c100;
-/// <summary>
-/// 1 - The type of the character
-/// </summary>
-//    public bool isEnemy = false;
+	public Camera cam;
 
 /// <summary>
 /// 2 - The movement speed of the character
 /// </summary>
-    public Vector3 staticMovement;
-    public Vector3 movement;
-    public int lineCharacter;
-    public int lineEnnemy;
-    public float boost = 0f;
-    public float speedDuration = 0f;
+    public float boostDuration = 0f;    // duration of boost/slow effect on character movement
+    public float speedDuration = 0f;    // duration of boost/slow effect on the screen scrolling effect
 
     public TextMesh scoreText;
     public TextMesh scoreText3D;
     static public float score = 0;
     public float increaseScore = 1;
+    static public int nbLsd = 0;
+    static public int nbSpeed = 0;
+    static public int nbWater = 0;
+    static public int nbEnemyHit = 0;
 
     private OverdoseBar overdoseBar;
 
@@ -59,77 +49,55 @@ public class CharacterScript : MonoBehaviour
     private Transform audioOverloadLvlUp;
 
     private float pitchModifier = 1f;
-
+    private int level = 0;
 
 /// <summary>
 /// 3 - Line on which the character is
 /// </summary>
-    public int line = 3;
-
+    private int line = 3;
 	public Animator animator;
-
-	public float timer = 5.0f;
-    public float pitchTimer = 3f;
+    private float pitchTimer = ConstantScript.PITCH_LENGTH;
 
 // Use this for initialization
     void Start ()
     {	
         score = 0;
-//        if (!isEnemy) {
-            InvokeRepeating ("addScore", 4.0f, 1.0f);
+        InvokeRepeating ("addScore", 4.0f, 1.0f);
 
-			animator = GetComponent<Animator> ();
+		animator = GetComponent<Animator> ();
 
-            overdoseBar = new OverdoseBar ();
+        overdoseBar = new OverdoseBar ();
 
-            var childList = GetComponentsInChildren<Transform>();
-            int count = childList.Length;
-            while (count > 0)
-            {
-                count--;
-                if (childList[count].name == "Audio0.1 - Soundtrack")               audioBack = childList[count];
-                else if (childList[count].name == "Audio0.2 - Speed - Soundtrack")  audioSpeedBack = childList[count];
-                else if (childList[count].name == "Audio0.3 - Croud")               audioCroud = childList[count];
+        var childList = GetComponentsInChildren<Transform>();
+        int count = childList.Length;
+        while (count > 0)
+        {
+            count--;
+            if (childList[count].name == "Audio0.1 - Soundtrack")               audioBack = childList[count];
+            else if (childList[count].name == "Audio0.2 - Speed - Soundtrack")  audioSpeedBack = childList[count];
+            else if (childList[count].name == "Audio0.3 - Croud")               audioCroud = childList[count];
 
-                else if (childList[count].name == "Audio1.1 - Speed")               audioSpeed = childList[count];
-                else if (childList[count].name == "Audio1.2 - LSD")                 audioLsd = childList[count];
-                else if (childList[count].name == "Audio1.3 - Water")               audioWater = childList[count];
-                else if (childList[count].name == "Audio1.4 - Hit")                 audioChoc = childList[count];
+            else if (childList[count].name == "Audio1.1 - Speed")               audioSpeed = childList[count];
+            else if (childList[count].name == "Audio1.2 - LSD")                 audioLsd = childList[count];
+            else if (childList[count].name == "Audio1.3 - Water")               audioWater = childList[count];
+            else if (childList[count].name == "Audio1.4 - Hit")                 audioChoc = childList[count];
 
-                else if (childList[count].name == "Audio2.0 - Countdown")           audioCountDown = childList[count];
-                else if (childList[count].name == "Audio2.1 - Overdose level up")   audioOverloadLvlUp = childList[count];
-            }
-            audioCountDown.audio.PlayDelayed(1f);
-            audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 3.3f);
-            audioCroud.audio.Play();
-//            audioBack.audio.pitch = 0.5f;
-//        }
+            else if (childList[count].name == "Audio2.0 - Countdown")           audioCountDown = childList[count];
+            else if (childList[count].name == "Audio2.1 - Overdose level up")   audioOverloadLvlUp = childList[count];
+        }
+        audioCountDown.audio.PlayDelayed(1f);
+        audioBack.audio.PlayDelayed(audioCountDown.audio.clip.length - 3.3f);
+        audioCroud.audio.Play();
+
+        cam.GetComponentInChildren<SpriteRenderer> ().enabled = false;
+        cam.GetComponent<ColorCorrectionEffect> ().enabled = false;
+        cam.GetComponent<TwirlEffect> ().enabled = false;
+        cam.GetComponent<NoiseAndGrain> ().enabled = false;
+        cam.GetComponent<MotionBlur> ().enabled = false;
+        cam.GetComponent<Animator> ().enabled = false;
+
     }
         
-    public void setLine (int newLine)
-    {
-        switch (line = newLine) {
-            case 1:
-                transform.Translate (13f, ConstantScript.LINE_1, 0.0f);
-                break;
-            case 2:
-                transform.Translate (13f, ConstantScript.LINE_2, 0.0f);
-                break;
-            case 3:
-                transform.Translate (13f, ConstantScript.LINE_3, 0.0f);
-                break;
-            case 4:
-                transform.Translate (13f, ConstantScript.LINE_4, 0.0f);
-                break;
-            case 5:
-                transform.Translate (13f, ConstantScript.LINE_5, 0.0f);
-                break;
-            default:
-                Debug.Log ("WARNING !!! (in characterScript - start() )");
-                break;
-        }
-    }
-
     void addScore ()
     {
         score += (increaseScore + (Time.time / 10)) * multiplicator;
@@ -152,100 +120,51 @@ public class CharacterScript : MonoBehaviour
         }
         updateDrugLevel ();
         updateMultiplicator ();
-
-		switch (overdoseBar.getLevel()) 
-		{
-            case 0: break;
-			case 1:
-            c0.camera.active = false;
-            c10.camera.active = true;
-				break;
-			case 2:
-            c10.camera.active = false;
-            c30.camera.active = true;
-				break;
-			case 3 :
-            c30.camera.active = false;
-            c50.camera.active = true;
-				break;
-			case 4 :
-            c50.camera.active = false;
-            c70.camera.active = true;
-				break;
-			case 5:
-            c70.camera.active = false;
-            c100.camera.active = true;
-				break;
-			default :
-                print ("Error : reduceDruglvl !!");
-				break;
-		}
+        setFX ();
     }
     
     void reduceDrugLevel(int drugLevel)
     {
         overdoseBar.reduceDrugLevel (drugLevel);
         updateDrugLevel ();
-
-		switch (overdoseBar.getLevel()) 
-		{
-			case 0:
-            c0.camera.active = true;
-            c10.camera.active = false;
-				break;
-			case 1:
-            c10.camera.active = true;
-            c30.camera.active = false;
-				break;
-			case 2 :
-            c30.camera.active = true;
-            c50.camera.active = false;
-				break;
-			case 3:
-            c50.camera.active = true;
-            c70.camera.active = false;
-				break;
-			case 4 :
-            c70.camera.active = true;
-            c100.camera.active = false;
-				break;
-            case 5 : break;
-			default :
-				print ("Error : reduceDruglvl !!");
-				break;
-		}
+        setFX ();
     }
 
-//    void activateFX(bool upgrade) {
-//        switch (overdoseBar.getLevel()) 
-//        {
-//        case 0:
-//            c0.camera.active  = !upgrade;
-//            c10.camera.active = upgrade;
-//            break;
-//        case 1:
-//            c10.camera.active = !upgrade;
-//            c30.camera.active = upgrade;
-//            break;
-//        case 2 :
-//            c30.camera.active = !upgrade;
-//            c50.camera.active = upgrade;
-//            break;
-//        case 3:
-//            c50.camera.active = !upgrade;
-//            c70.camera.active = upgrade;
-//            break;
-//        case 4 :
-//            c70.camera.active  = !upgrade;
-//            c100.camera.active = upgrade;
-//            break;
-//        case 5 : break;
-//        default :
-//            print ("Error : reduceDruglvl !!");
-//            break;
-//        }
-//
-//    }
+    void setFX() {
+        if (level != overdoseBar.getLevel())
+        switch (level = overdoseBar.getLevel()) 
+        {
+        case 0:
+            cam.GetComponentInChildren<SpriteRenderer> ().enabled = false;
+            break;
+        case 1:
+            cam.GetComponentInChildren<SpriteRenderer> ().enabled = true;
+            cam.GetComponent<NoiseAndGrain> ().enabled = false;
+            break;
+        case 2 :
+            cam.GetComponent<NoiseAndGrain> ().enabled = true;
+            cam.GetComponent<TwirlEffect> ().enabled = false;
+            cam.GetComponent<Animator> ().enabled = false;
+            break;
+        case 3:
+            cam.GetComponent<Animator> ().enabled = true;
+            cam.GetComponent<TwirlEffect> ().enabled = true;
+            cam.GetComponent<MotionBlur> ().enabled = false;
+            break;
+        case 4 :
+            cam.GetComponent<Animator> ().CrossFade("FXCam",0f);
+            cam.GetComponent<MotionBlur> ().enabled = true;
+            cam.GetComponent<ColorCorrectionEffect> ().enabled = false;
+            break;
+        case 5 : 
+            cam.GetComponent<Animator> ().CrossFade("FXCam2",0f);
+            cam.GetComponent<ColorCorrectionEffect> ().enabled = true;
+            break;
+        default :
+            print ("Error : setFX !!");
+            break;
+        }
+    }
 
     void updateMultiplicator ()
     {
@@ -263,26 +182,14 @@ public class CharacterScript : MonoBehaviour
 // Update is called once per frame
     void Update ()
     {
-//        if (isEnemy) {
-//            Vector3 mov = new Vector3 (
-//                    -ConstantScript.ENNEMY_SPEED * Time.deltaTime,
-//                    0,
-//                    0);
-//            transform.Translate (mov);
-//            return;
-//        }
-
-        float shiftY = 0;
-        float shiftZ = 0;
-
+        // change line on Arrow
         if (Input.GetKeyUp (KeyCode.UpArrow)) {
-            shiftY = changeLine (1);
-            shiftZ = 1f;
+            changeLine (1);
         } else if (Input.GetKeyUp (KeyCode.DownArrow)) {
-            shiftY = changeLine (-1);
-            shiftZ = -1f;
+            changeLine (-1);
         }
 
+        // reset scrolling speed if needed
         if (speedDuration > 0) {
             speedDuration -= Time.deltaTime;
         } else {
@@ -294,36 +201,9 @@ public class CharacterScript : MonoBehaviour
             speedDuration = 0;
         }
 
+        // rand (and set) new pitch if timer is 0
         if (pitchTimer < 0) {
-            float limitsDown = 1f;
-            float limitsUp = 1f;
-            switch (overdoseBar.getLevel ()) {
-            case 0 :
-                limitsDown = 1f;
-                limitsUp = 1f;
-                break;
-            case 1 : 
-                limitsDown = 0.95f;
-                limitsUp = 1.05f;
-                break;
-            case 2 : 
-                limitsDown = 0.9f;
-                limitsUp = 1.1f;
-                break;
-            case 3 : 
-                limitsDown = 0.8f;
-                limitsUp = 1.2f;
-                break;
-            case 4 : 
-                limitsDown = 0.7f;
-                limitsUp = 1.3f;
-                break;
-            case 5 : 
-                limitsDown = 0.6f;
-                limitsUp = 1.4f;
-                break;
-            }
-            float value = Random.Range (limitsDown, limitsUp);
+            float value = Random.Range (ConstantScript.limitsDown[level], ConstantScript.limitsUp[level]);
             audioBack.audio.pitch = value * pitchModifier;
             audioSpeedBack.audio.pitch = value * pitchModifier;
             audioCroud.audio.pitch = value * pitchModifier;
@@ -333,31 +213,29 @@ public class CharacterScript : MonoBehaviour
             audioChoc.audio.pitch = value * pitchModifier;
             audioCountDown.audio.pitch = value * pitchModifier;
             audioOverloadLvlUp.audio.pitch = value * pitchModifier;
-            pitchTimer = 3f;
+            pitchTimer = ConstantScript.PITCH_LENGTH;
         }
         pitchTimer -= Time.deltaTime;
 
+        // add speed / slow modifier to the character movement
         float modif = 0;
-        if (boost != 0) {
-            if (boost < Time.deltaTime && boost > -Time.deltaTime) {
-                boost = 0;
-            } else if (boost > 0) {
+        if (boostDuration != 0) {
+            if (boostDuration < Time.deltaTime && boostDuration > -Time.deltaTime) {
+                boostDuration = 0;
+            } else if (boostDuration > 0) {
                 modif = ConstantScript.BOOST_SPEED;
-                boost -= Time.deltaTime;
-            } else if (boost < 0) {
+                boostDuration -= Time.deltaTime;
+            } else if (boostDuration < 0) {
                 modif = -ConstantScript.BOOST_SPEED;
-                boost += Time.deltaTime;
+                boostDuration += Time.deltaTime;
             }
         }
 
         // Update 1 - Move the character
-        Vector3 mov2 = new Vector3 (
-            (-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime,
-            shiftY,
-            shiftZ);
-
+        Vector3 mov2 = new Vector3 ( (-ConstantScript.RUNNER_SPEED + modif) * Time.deltaTime, 0f,0f);
         transform.Translate (mov2);
 
+        // test all components of character to see if "out of screen"
         SpriteRenderer[] childRenderer = GetComponentsInChildren< SpriteRenderer > ();
         bool stop = true;
         int count = childRenderer.Length;
@@ -366,117 +244,85 @@ public class CharacterScript : MonoBehaviour
             if (childRenderer [count].IsVisibleFrom (Camera.main))
                 stop = false;
         }
+        // if all components are out of screen : end screen
         if (stop) {
             Application.LoadLevel ("death");
         }
     }
 
-    float changeLine (int direction)
+// change line of the character (Y and Z coords)
+    void changeLine (int direction)
     {
         float shiftY = 0;
-        float currentLineY = getLineY (line);
-
+        float shiftZ = 0;
         if (1 == direction && 5 > line) {
-            line++;
-            shiftY = getLineY (line) - currentLineY;
+            shiftY = - ConstantScript.LINE[line-1] + ConstantScript.LINE[++line -1];
+            shiftZ = 1f;
         } else if (-1 == direction && 1 < line) {
-            line--;
-            shiftY = getLineY (line) - currentLineY;
+            shiftY = - ConstantScript.LINE[line-1] + ConstantScript.LINE[--line -1];
+            shiftZ = -1f;
         }
-
-        return shiftY;
-    }
-
-    float getLineY (int line)
-    {
-        float y = 0;
-
-        switch (line) {
-            case 1:
-                y = ConstantScript.LINE_1;
-                break;
-            case 2:
-                y = ConstantScript.LINE_2;
-                break;
-            case 3:
-                y = ConstantScript.LINE_3;
-                break;
-            case 4:
-                y = ConstantScript.LINE_4;
-                break;
-            case 5:
-                y = ConstantScript.LINE_5;
-                break;
-            default:
-                break;
-        }
-
-        return y;
+        transform.Translate (0f, shiftY, shiftZ);
     }
 
     void OnTriggerEnter2D (Collider2D otherCollider)
     {
-//        if (!isEnemy) 
-//		{
-			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-
-            DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
-            if (drug != null) {
-                if (drug.line == line) {
-                    switch (drug.type) {
-                        case "Speed":
-							animator.SetTrigger("Pic");
-                            audioSpeed.audio.Play();
-                            audioSpeedBack.audio.PlayDelayed(audioSpeed.audio.clip.length);
-                            boost = ConstantScript.BOOST_LENGTH;
-                            addDrugLevel(drug.drugPoint);
-                            score += increaseScore * multiplicator;
-                            ConstantScript.GAME_SPEED = 1f * ConstantScript.SPEED_CHANGER;
-                            ConstantScript.updateValue();
-                            audioBack.audio.mute = true;
-                            speedDuration = ConstantScript.SPEED_MAX_LENGTH;
-                            break;
-                        case "LSD":
-							animator.SetTrigger("Drug");
-                            audioLsd.audio.Play();
-                            boost = -ConstantScript.BOOST_LENGTH / 3;
-                            addDrugLevel(drug.drugPoint);
-                            score += increaseScore * multiplicator;
-                            ConstantScript.GAME_SPEED = 1f / ConstantScript.SPEED_CHANGER;
-                            ConstantScript.updateValue();
-                            pitchModifier = 0.7f;
-                            speedDuration = ConstantScript.SPEED_MAX_LENGTH;
-                            break;
-                        case "Water":
-							animator.SetTrigger("Drug");
-                            audioWater.audio.Play();
-                            reduceDrugLevel(drug.drugPoint);
-                            break;
-                        default :
-                            Debug.Log ("WARNING !!! should never happen !!! drug has no type");
-                            break;
-                    }
-                    Destroy (drug.gameObject);
+        DrugScript drug = otherCollider.gameObject.GetComponent<DrugScript> ();
+        if (drug != null) {
+            if (drug.line == line) {
+                switch (drug.type) {
+                    case "Speed":
+						animator.SetTrigger("Pic");
+                        audioSpeed.audio.Play();
+                        audioSpeedBack.audio.PlayDelayed(audioSpeed.audio.clip.length);
+                        boostDuration = ConstantScript.BOOST_LENGTH;
+                        addDrugLevel(drug.drugPoint);
+                        score += increaseScore * multiplicator;
+                        ConstantScript.GAME_SPEED = 1f * ConstantScript.SPEED_CHANGER;
+                        ConstantScript.updateValue();
+                        audioBack.audio.mute = true;
+                        speedDuration = ConstantScript.SPEED_MAX_LENGTH;
+                        nbSpeed++;
+                        break;
+                    case "LSD":
+						animator.SetTrigger("Drug");
+                        audioLsd.audio.Play();
+                        boostDuration = -ConstantScript.BOOST_LENGTH / 3;
+                        addDrugLevel(drug.drugPoint);
+                        score += increaseScore * multiplicator;
+                        ConstantScript.GAME_SPEED = 1f / ConstantScript.SPEED_CHANGER;
+                        ConstantScript.updateValue();
+                        pitchModifier = 0.7f;
+                        speedDuration = ConstantScript.SPEED_MAX_LENGTH;
+                        nbLsd++;
+                        break;
+                    case "Water":
+						animator.SetTrigger("Drug");
+                        audioWater.audio.Play();
+                        reduceDrugLevel(drug.drugPoint);
+                        nbWater++;
+                        break;
+                    default :
+                        Debug.Log ("WARNING !!! should never happen !!! drug has no type");
+                        break;
                 }
-                return;
+                Destroy (drug.gameObject);
             }
-            EnemyScript enemy = otherCollider.gameObject.GetComponent<EnemyScript> ();
-            if (enemy != null) {
-                if (enemy.line == line) {
-                    //Supprimer les bonus des drogues
-                    audioChoc.audio.Play();
-                    boost = -ConstantScript.BOOST_LENGTH / 2;
-					animator.SetTrigger("Fetus");
-                    multiplicator = 1;
-
-					//ActivateDeactivate_c10(false);
-
-                    updateMultiplicator();
-                    Destroy (enemy.gameObject);
-                }
-                return;
+            return;
+        }
+        EnemyScript enemy = otherCollider.gameObject.GetComponent<EnemyScript> ();
+        if (enemy != null) {
+            if (enemy.line == line) {
+                //Supprimer les bonus des drogues
+                audioChoc.audio.Play();
+                boostDuration = -ConstantScript.BOOST_LENGTH / 2;
+				animator.SetTrigger("Fetus");
+                multiplicator = 1;
+                nbEnemyHit++;
+                updateMultiplicator();
+                Destroy (enemy.gameObject);
             }
-//        }
+            return;
+        }
     }
 }
