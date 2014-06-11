@@ -10,7 +10,7 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: GameJam 6 - Poztatim
+  companyName: com.GameJam6.Poztatim
   productName: 'Super Hippie Marathon Man : New-York Edition'
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -34,7 +34,7 @@ PlayerSettings:
   useOSAutorotation: 1
   use32BitDisplayBuffer: 1
   use24BitDepthBuffer: 1
-  defaultIsFullScreen: 1
+  defaultIsFullScreen: 0
   defaultIsNativeResolution: 0
   runInBackground: 0
   captureSingleScreen: 0
@@ -44,7 +44,7 @@ PlayerSettings:
   usePlayerLog: 1
   stripPhysics: 0
   forceSingleInstance: 0
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   gpuSkinning: 0
   xboxPIXTextureCapture: 0
@@ -73,7 +73,7 @@ PlayerSettings:
     16:10: 0
     16:9: 1
     Others: 0
-  iPhoneBundleIdentifier: com.Company.ProductName
+  iPhoneBundleIdentifier: com.GameJam6.Poztatim
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: f02ef3c5687867241b15c93a48da574e
@@ -169,7 +169,8 @@ PlayerSettings:
   ps3TrialMode: 0
   flashStrippingLevel: 2
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    7: 
   metroPackageName: GameJam6
   metroPackageLogo: 
   metroPackageVersion: 
